@@ -5,8 +5,14 @@
       <map>
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/btn_shape_round.xml" value="0.2165" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/button_custom.xml" value="0.2165" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/custom_edittext.xml" value="0.2155" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/custom_email_icon.xml" value="0.1685" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/custom_lock_icon.xml" value="0.1" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/ic_email_focus.xml" value="0.1685" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/ic_lock_focus.xml" value="0.1685" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/font/font_title.xml" value="0.23854166666666668" />
-        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>
   </component>
