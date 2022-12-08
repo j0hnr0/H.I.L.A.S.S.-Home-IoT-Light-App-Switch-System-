@@ -15,5 +15,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(it)
             }
         }
+
+        btnRegisterStartPage.setOnClickListener {
+            Intent(this, RegisterActivity::class.java).also {
+                startActivity(it)
+            }
+        }
     }
 }
