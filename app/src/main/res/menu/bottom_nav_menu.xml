@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bnmBedroom"
+        android:title="Bedroom"
+        android:icon="@drawable/ic_bed"/>
+
+    <item
+        android:id="@+id/bnmLivingroom"
+        android:title="Living Room"
+        android:icon="@drawable/ic_livingroom"/>
+
+    <item
+        android:id="@+id/bnmKitchen"
+        android:title="Kitchen"
+        android:icon="@drawable/ic_kitchen"/>
+
+</menu>
