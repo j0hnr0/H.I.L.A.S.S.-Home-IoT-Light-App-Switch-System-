@@ -36,6 +36,7 @@
             android:padding="16dp">
 
             <EditText
+                android:id="@+id/etLoginEmailAddress"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
@@ -49,6 +50,7 @@
                 android:ems="20"/>
 
             <EditText
+                android:id="@+id/etLoginPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:inputType="textPassword"

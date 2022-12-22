@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".BedroomFragment">
+    tools:context=".LivingRoomFragment">
 
     <TextView
-        android:id="@+id/tvBedroom"
-        android:layout_marginTop="70dp"
+        android:id="@+id/tvLivingRoom"
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bedroom"
+        android:text="Living Room"
         android:textStyle="bold"
         android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,18 +19,18 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
-        android:id="@+id/ivBedroomBulb"
+        android:id="@+id/ivLivingRoomBulb"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/bulb_off"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvBedroom"/>
+        app:layout_constraintTop_toBottomOf="@id/tvLivingRoom"/>
 
     <TextView
-        android:id="@+id/tvInstructionBedroom"
+        android:id="@+id/tvInstructionLivingRoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tap to manually turn on/off"
@@ -38,10 +38,10 @@
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivBedroomBulb"/>
+        app:layout_constraintTop_toBottomOf="@id/ivLivingRoomBulb"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnManualBedroom"
+        android:id="@+id/btnManualLivingRoom"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:background="@drawable/btn_shape_round"
@@ -52,10 +52,10 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="40dp"
         android:layout_marginStart="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvInstructionBedroom"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvInstructionLivingRoom"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAutomaticBedroom"
+        android:id="@+id/btnAutomaticLivingRoom"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:background="@drawable/btn_shape_round"
@@ -66,6 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvInstructionBedroom"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvInstructionLivingRoom"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

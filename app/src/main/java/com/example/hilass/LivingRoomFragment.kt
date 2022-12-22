@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_bedroom.*
+import kotlinx.android.synthetic.main.fragment_living_room.*
 
-class BedroomFragment : Fragment() {
-
+class LivingRoomFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bedroom, container, false)
+        return inflater.inflate(R.layout.fragment_living_room, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -22,15 +22,14 @@ class BedroomFragment : Fragment() {
 
         var bulbClick = 0
 
-        ivBedroomBulb.setOnClickListener {
+        ivLivingRoomBulb.setOnClickListener {
             if(bulbClick == 0){
-                ivBedroomBulb.setImageResource(R.drawable.bulb_on)
+                ivLivingRoomBulb.setImageResource(R.drawable.bulb_on)
                 bulbClick = 1
             }else{
-                ivBedroomBulb.setImageResource(R.drawable.bulb_off)
+                ivLivingRoomBulb.setImageResource(R.drawable.bulb_off)
                 bulbClick = 0
             }
         }
     }
-
 }

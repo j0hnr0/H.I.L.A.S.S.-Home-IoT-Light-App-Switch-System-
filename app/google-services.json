@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "129394135955",
+    "project_id": "hilass-90838",
+    "storage_bucket": "hilass-90838.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129394135955:android:2c21f569a4abee60c18e66",
+        "android_client_info": {
+          "package_name": "com.example.hilass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "129394135955-60c5nc4je514aacht95fsrhfa4i0b50v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXq5E4GmG_UN-mC57jT8ux8_Ynu5BqMw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "129394135955-60c5nc4je514aacht95fsrhfa4i0b50v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
