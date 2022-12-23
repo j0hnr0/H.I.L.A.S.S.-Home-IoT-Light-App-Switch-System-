@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/btn_shape_round.xml" value="0.2165" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/btn_shape_round_disable.xml" value="0.1365" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/button_custom.xml" value="0.2165" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/custom_edittext.xml" value="0.2155" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/custom_email_icon.xml" value="0.1685" />
@@ -24,7 +25,7 @@
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_menu.xml" value="0.24452554744525548" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_test.xml" value="0.209375" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/menu/bottom_nav_menu.xml" value="0.209375" />
-        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/menu/menupage_menu.xml" value="0.209375" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/menu/menupage_menu.xml" value="0.33" />
       </map>
     </option>
   </component>

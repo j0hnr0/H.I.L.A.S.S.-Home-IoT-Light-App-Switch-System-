@@ -1,8 +1,11 @@
 package com.example.hilass
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
@@ -24,6 +27,10 @@ class RegisterActivity : AppCompatActivity() {
 
         btnRegisterRegisterPage.setOnClickListener {
             registerUser()
+        }
+
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
         }
     }
 
@@ -50,6 +57,9 @@ class RegisterActivity : AppCompatActivity() {
         val password = etRegisterPassword.text.toString()
 
         if(email.isNotEmpty() && password.isNotEmpty()){
+            btnRegisterRegisterPage.setBackgroundResource(R.drawable.btn_shape_round_disable)
+            btnRegisterRegisterPage.setTextColor(Color.GRAY)
+            btnRegisterRegisterPage.isClickable = false
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     auth.createUserWithEmailAndPassword(email, password).await()
@@ -59,6 +69,9 @@ class RegisterActivity : AppCompatActivity() {
                 } catch(e: Exception){
                     withContext(Dispatchers.Main){
                         Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_LONG).show()
+                        btnRegisterRegisterPage.setBackgroundResource(R.drawable.btn_shape_round)
+                        btnRegisterRegisterPage.setTextColor(Color.WHITE)
+                        btnRegisterRegisterPage.isClickable = true
                     }
                 }
             }

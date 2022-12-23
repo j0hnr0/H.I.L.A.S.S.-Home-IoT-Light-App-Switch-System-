@@ -10,6 +10,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if (supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
+
         btnLoginStartPage.setOnClickListener {
             Intent(this, LoginActivity::class.java).also {
                 startActivity(it)
