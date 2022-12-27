@@ -1,10 +1,10 @@
 package com.example.hilass
 
 import android.os.Bundle
+import android.util.Log
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_bedroom.*
 
 class BedroomFragment : Fragment() {
@@ -32,5 +32,4 @@ class BedroomFragment : Fragment() {
             }
         }
     }
-
 }

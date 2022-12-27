@@ -15,17 +15,19 @@
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/ic_livingroom.xml" value="0.1515" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/drawable/ic_lock_focus.xml" value="0.1685" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/font/font_title.xml" value="0.23854166666666668" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/activity_bedroom_settings.xml" value="0.209375" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/activity_menu.xml" value="0.25" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/activity_register.xml" value="0.25" />
-        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_bedroom.xml" value="0.22" />
-        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_kitchen.xml" value="0.209375" />
-        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_living_room.xml" value="0.209375" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_bedroom.xml" value="0.25" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_kitchen.xml" value="0.25" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_living_room.xml" value="0.25" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_menu.xml" value="0.24452554744525548" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/layout/fragment_test.xml" value="0.209375" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/menu/bottom_nav_menu.xml" value="0.209375" />
         <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/menu/menupage_menu.xml" value="0.33" />
+        <entry key="..\:/Android Projects/HILASS Thesis S.Y. 2022-2023/app/src/main/res/menu/settings_menu.xml" value="0.209375" />
       </map>
     </option>
   </component>
