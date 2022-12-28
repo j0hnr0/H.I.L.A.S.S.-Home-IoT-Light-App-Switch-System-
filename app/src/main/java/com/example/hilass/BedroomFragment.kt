@@ -1,5 +1,6 @@
 package com.example.hilass
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -29,6 +30,11 @@ class BedroomFragment : Fragment() {
             }else{
                 ivBedroomBulb.setImageResource(R.drawable.bulb_off)
                 bulbClick = 0
+            }
+        }
+        ivBedroomSettings.setOnClickListener {
+            Intent(context, BedroomSettings::class.java).also {
+                startActivity(it)
             }
         }
     }

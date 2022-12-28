@@ -1,5 +1,6 @@
 package com.example.hilass
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_menu.*
+import kotlinx.android.synthetic.main.fragment_bedroom.*
 
 class MenuActivity : AppCompatActivity() {
 
@@ -36,7 +38,6 @@ class MenuActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
     private fun setCurrentFragment(fragment: Fragment) =
