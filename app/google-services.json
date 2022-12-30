@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "129394135955",
-    "project_id": "hilass-90838",
-    "storage_bucket": "hilass-90838.appspot.com"
+    "project_number": "23606259600",
+    "project_id": "hilass-dc49a",
+    "storage_bucket": "hilass-dc49a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:129394135955:android:2c21f569a4abee60c18e66",
+        "mobilesdk_app_id": "1:23606259600:android:3473138b01a5068ad18d15",
         "android_client_info": {
           "package_name": "com.example.hilass"
         }
       },
       "oauth_client": [
         {
-          "client_id": "129394135955-60c5nc4je514aacht95fsrhfa4i0b50v.apps.googleusercontent.com",
+          "client_id": "23606259600-im1rp3uub7r6poo16qb5fhro3mmkf7mg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDXq5E4GmG_UN-mC57jT8ux8_Ynu5BqMw8"
+          "current_key": "AIzaSyAEbqPk-WgnIi6zMM1fdlwqpMNdMcSSznI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "129394135955-60c5nc4je514aacht95fsrhfa4i0b50v.apps.googleusercontent.com",
+              "client_id": "23606259600-im1rp3uub7r6poo16qb5fhro3mmkf7mg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

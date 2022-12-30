@@ -16,9 +16,17 @@
         android:theme="@style/Theme.HILASS"
         tools:targetApi="31">
         <activity
-            android:name=".BedroomSettings"
+            android:name=".LivingRoomSettings"
             android:exported="false"
             android:parentActivityName=".MenuActivity"/>
+        <activity
+            android:name=".KitchenSettings"
+            android:exported="false"
+            android:parentActivityName=".MenuActivity"/>
+        <activity
+            android:name=".BedroomSettings"
+            android:exported="false"
+            android:parentActivityName=".MenuActivity" />
         <activity
             android:name=".MenuActivity"
             android:exported="false" />
