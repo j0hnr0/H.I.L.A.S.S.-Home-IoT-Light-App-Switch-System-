@@ -8,6 +8,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.firestoreSettings
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +21,8 @@ import kotlinx.coroutines.withContext
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+
+    private var personCollectionRef = Firebase.firestore.collection("persons")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +68,12 @@ class RegisterActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     auth.createUserWithEmailAndPassword(email, password).await()
+                    val user = auth.currentUser
+                    if(user!=null){
+                        val uid = user.uid
+                        val userRef = personCollectionRef.document(uid)
+                        userRef.set(Test(0)).await()
+                    }
                     withContext(Dispatchers.Main){
                         checkLoggedInState()
                     }
