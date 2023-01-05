@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
@@ -72,7 +73,8 @@ class RegisterActivity : AppCompatActivity() {
                     if(user!=null){
                         val uid = user.uid
                         val userRef = personCollectionRef.document(uid)
-                        userRef.set(Test(0)).await()
+                        val data = UserData(false, false, false, false, false, false)
+                        userRef.set(data).await()
                     }
                     withContext(Dispatchers.Main){
                         checkLoggedInState()

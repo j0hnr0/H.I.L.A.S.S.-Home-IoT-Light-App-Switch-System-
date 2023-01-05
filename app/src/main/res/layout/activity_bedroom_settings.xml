@@ -43,6 +43,7 @@
                         android:textSize="20sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swAmbientLightingBedroom"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="100dp"
@@ -63,6 +64,7 @@
                         android:textSize="20sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swAutomaticLightingBedroom"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="82dp"
@@ -107,6 +109,7 @@
                         android:textSize="20sp"/>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swDaylightBedroom"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:thumb="@drawable/thumb"
@@ -154,6 +157,7 @@
                         android:textSize="20sp"/>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swNotificationBedroom"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:thumb="@drawable/thumb"
