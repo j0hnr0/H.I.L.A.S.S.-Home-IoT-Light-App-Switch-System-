@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -27,6 +28,8 @@ class BedroomFragment : Fragment() {
 
     private var bulbValue = false
     private var btnManualAuto = false
+
+    private var listenerRegistration: ListenerRegistration? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,11 +67,20 @@ class BedroomFragment : Fragment() {
     }
 
     private fun getRealtimeUpdates(){
+
+        if (btnAutomaticBedroom == null) {
+            Log.d("TAG", "btnAutomaticBedroom is null")
+        }
+
+        if (btnManualBedroom == null) {
+            Log.d("TAG", "btnManualBedroom is null")
+        }
+
         val user = auth.currentUser
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
 
-            userRef.addSnapshotListener(EventListener<DocumentSnapshot> {snapshot, e ->
+            listenerRegistration = userRef.addSnapshotListener(EventListener<DocumentSnapshot> {snapshot, e ->
                 if(e != null){
                     Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
                     return@EventListener
@@ -149,5 +161,9 @@ class BedroomFragment : Fragment() {
             true -> userRef.update("manualAutoBedroom", true)
 
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        listenerRegistration?.remove()
     }
 }

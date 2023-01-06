@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_bedroom_settings.*
@@ -18,10 +19,12 @@ class BedroomSettings : AppCompatActivity() {
 
     private var personCollectionRef = Firebase.firestore.collection("persons")
 
-    private var swBedroomAmbient = false
-    private var swBedroomAutomatic = false
-    private var swBedroomDayLight = false
-    private var swBedroomNotification = false
+    private var swAmbient = false
+    private var swAutomatic = false
+    private var swDayLight = false
+    private var swNotification = false
+
+    private var listenerRegistration: ListenerRegistration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,33 +37,33 @@ class BedroomSettings : AppCompatActivity() {
 
         swAmbientLightingBedroom.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
-                swBedroomAmbient = true
+                swAmbient = true
             } else {
-                swBedroomAmbient = false
+                swAmbient = false
             }
         }
 
         swAutomaticLightingBedroom.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
-                swBedroomAutomatic = true
+                swAutomatic = true
             } else {
-                swBedroomAutomatic = false
+                swAutomatic = false
             }
         }
 
         swDaylightBedroom.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
-                swBedroomDayLight = true
+                swDayLight = true
             } else {
-                swBedroomDayLight = false
+                swDayLight = false
             }
         }
 
         swNotificationBedroom.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
-                swBedroomNotification = true
+                swNotification = true
             } else {
-                swBedroomNotification = false
+                swNotification = false
             }
         }
 
@@ -78,7 +81,7 @@ class BedroomSettings : AppCompatActivity() {
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
 
-        userRef.addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+        listenerRegistration = userRef.addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
             if(e != null){
                 Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
                 return@EventListener
@@ -92,44 +95,44 @@ class BedroomSettings : AppCompatActivity() {
 
                 when(ambient){
                     true ->{
-                        swBedroomAmbient = ambient
+                        swAmbient = ambient
                         swAmbientLightingBedroom.isChecked = true
                     }
                     false ->{
-                        swBedroomAmbient = ambient
+                        swAmbient = ambient
                         swAmbientLightingBedroom.isChecked = false
                     }
                 }
 
                 when(automatic){
                     true ->{
-                        swBedroomAutomatic = automatic
+                        swAutomatic = automatic
                         swAutomaticLightingBedroom.isChecked = true
                     }
                     false ->{
-                        swBedroomAutomatic = automatic
+                        swAutomatic = automatic
                         swAutomaticLightingBedroom.isChecked = false
                     }
                 }
 
                 when(dayLight){
                     true ->{
-                        swBedroomDayLight = dayLight
+                        swDayLight = dayLight
                         swDaylightBedroom.isChecked = true
                     }
                     false ->{
-                        swBedroomDayLight = dayLight
+                        swDayLight = dayLight
                         swDaylightBedroom.isChecked = false
                     }
                 }
 
                 when(notification){
                     true ->{
-                        swBedroomNotification = notification
+                        swNotification = notification
                         swNotificationBedroom.isChecked = true
                     }
                     false ->{
-                        swBedroomNotification = notification
+                        swNotification = notification
                         swNotificationBedroom.isChecked = false
                     }
                 }
@@ -138,8 +141,11 @@ class BedroomSettings : AppCompatActivity() {
                 // Do nothing
             }
         })
+    }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        listenerRegistration?.remove()
     }
 
     private fun saveValue(){
@@ -151,22 +157,22 @@ class BedroomSettings : AppCompatActivity() {
         btnBedroomSave.setTextColor(Color.GRAY)
         btnBedroomSave.isClickable = false
 
-        when(swBedroomAmbient){
+        when(swAmbient){
             true -> userRef.update("ambientLightingBedroom", true)
             false -> userRef.update("ambientLightingBedroom", false)
         }
 
-        when(swBedroomAutomatic){
+        when(swAutomatic){
             true -> userRef.update("automaticLightingBedroom", true)
             false -> userRef.update("automaticLightingBedroom", false)
         }
 
-        when(swBedroomDayLight){
+        when(swDayLight){
             true -> userRef.update("dayLightBedroom", true)
             false -> userRef.update("dayLightBedroom", false)
         }
 
-        when(swBedroomNotification){
+        when(swNotification){
             true -> userRef.update("notificationBedroom", true)
             false -> userRef.update("notificationBedroom", false)
         }

@@ -41,6 +41,7 @@
                         android:textSize="20sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swAmbientLightingKitchen"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="100dp"
@@ -61,6 +62,7 @@
                         android:textSize="20sp" />
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swAutomaticLightingKitchen"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="82dp"
@@ -105,6 +107,7 @@
                         android:textSize="20sp"/>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swDayLightKitchen"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:thumb="@drawable/thumb"
@@ -152,6 +155,7 @@
                         android:textSize="20sp"/>
 
                     <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/swNotificationKitchen"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:thumb="@drawable/thumb"

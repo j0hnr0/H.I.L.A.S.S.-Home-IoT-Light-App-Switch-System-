@@ -73,7 +73,26 @@ class RegisterActivity : AppCompatActivity() {
                     if(user!=null){
                         val uid = user.uid
                         val userRef = personCollectionRef.document(uid)
-                        val data = UserData(false, false, false, false, false, false)
+                        val data = UserData(
+                            bulbOnOffBedroom = false,
+                            manualAutoBedroom = false,
+                            ambientLightingBedroom = false,
+                            automaticLightingBedroom = false,
+                            dayLightBedroom = false,
+                            notificationBedroom = false,
+                            bulbOnOffLivingRoom = false,
+                            manualAutoLivingRoom = false,
+                            ambientLightingLivingRoom = false,
+                            automaticLightingLivingRoom = false,
+                            dayLightLivingRoom = false,
+                            notificationLivingRoom = false,
+                            bulbOnOffKitchen = false,
+                            manualAutoKitchen = false,
+                            ambientLightingKitchen = false,
+                            automaticLightingKitchen = false,
+                            dayLightKitchen = false,
+                            notificationKitchen = false
+                        )
                         userRef.set(data).await()
                     }
                     withContext(Dispatchers.Main){
