@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.fragment_bedroom.*
 
@@ -20,6 +21,17 @@ class MenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
 
         auth = FirebaseAuth.getInstance()
+
+        FirebaseMessaging.getInstance().subscribeToTopic("all")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Permission granted
+                    Log.d("FCM", "Successfully subscribed to topic")
+                } else {
+                    // Permission denied
+                    Log.e("FCM", "Failed to subscribe to topic")
+                }
+            }
 
         val bedroomFragment = BedroomFragment()
         val kitchenFragment = KitchenFragment()

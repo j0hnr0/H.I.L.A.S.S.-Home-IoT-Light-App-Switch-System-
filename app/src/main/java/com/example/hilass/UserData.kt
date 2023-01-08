@@ -20,5 +20,9 @@ data class UserData(
     val ambientLightingKitchen: Boolean = false,
     val automaticLightingKitchen: Boolean = false,
     val dayLightKitchen: Boolean = false,
-    val notificationKitchen: Boolean = false
+    val notificationKitchen: Boolean = false,
+
+    val sendNotificationBedroom: Boolean = false,
+    val sendNotificationLivingRoom: Boolean = false,
+    val sendNotificationKitchen: Boolean = false
 )

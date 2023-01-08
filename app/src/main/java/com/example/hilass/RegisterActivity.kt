@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -12,6 +13,7 @@ import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -91,7 +93,10 @@ class RegisterActivity : AppCompatActivity() {
                             ambientLightingKitchen = false,
                             automaticLightingKitchen = false,
                             dayLightKitchen = false,
-                            notificationKitchen = false
+                            notificationKitchen = false,
+                            sendNotificationBedroom = false,
+                            sendNotificationLivingRoom = false,
+                            sendNotificationKitchen = false
                         )
                         userRef.set(data).await()
                     }
