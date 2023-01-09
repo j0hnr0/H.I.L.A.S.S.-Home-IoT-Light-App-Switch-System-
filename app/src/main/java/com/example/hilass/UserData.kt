@@ -24,5 +24,7 @@ data class UserData(
 
     val sendNotificationBedroom: Boolean = false,
     val sendNotificationLivingRoom: Boolean = false,
-    val sendNotificationKitchen: Boolean = false
+    val sendNotificationKitchen: Boolean = false,
+
+    val fcmToken: String = ""
 )

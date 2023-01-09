@@ -96,7 +96,8 @@ class RegisterActivity : AppCompatActivity() {
                             notificationKitchen = false,
                             sendNotificationBedroom = false,
                             sendNotificationLivingRoom = false,
-                            sendNotificationKitchen = false
+                            sendNotificationKitchen = false,
+                            fcmToken = ""
                         )
                         userRef.set(data).await()
                     }

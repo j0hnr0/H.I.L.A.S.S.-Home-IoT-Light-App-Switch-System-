@@ -8,6 +8,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.fragment_bedroom.*
@@ -15,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_bedroom.*
 class MenuActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private var personCollectionRef = Firebase.firestore.collection("persons")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,16 +26,16 @@ class MenuActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        FirebaseMessaging.getInstance().subscribeToTopic("all")
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // Permission granted
-                    Log.d("FCM", "Successfully subscribed to topic")
-                } else {
-                    // Permission denied
-                    Log.e("FCM", "Failed to subscribe to topic")
-                }
+        FirebaseMessaging.getInstance().getToken()
+            .addOnSuccessListener { token ->
+                // Save the FCM token in the document
+                val user = auth.currentUser
+                val uid = user!!.uid
+                val userRef = personCollectionRef.document(uid)
+                userRef.update("fcmToken", token)
+                Log.d("FCM", "Successfully retrieved the token")
             }
+
 
         val bedroomFragment = BedroomFragment()
         val kitchenFragment = KitchenFragment()
