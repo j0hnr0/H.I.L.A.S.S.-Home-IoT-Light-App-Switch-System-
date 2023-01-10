@@ -25,7 +25,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             customContentView.setTextViewText(R.id.tvMessage, notification.body)
             customContentView.setImageViewResource(R.id.ivAppLogo, R.drawable.ic_notification)
 
-            val customBigContentView = RemoteViews(packageName, R.layout.notification)
+            val customBigContentView = RemoteViews("com.example.hilass", R.layout.notification)
             customBigContentView.setTextViewText(R.id.tvTitle, notification.title)
             customBigContentView.setTextViewText(R.id.tvMessage, notification.body)
             customBigContentView.setImageViewResource(R.id.ivAppLogo, R.drawable.ic_notification)

@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/grey">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ivAppLogo"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="48px"
+            android:layout_height="48px"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_notification"/>
+            android:src="@drawable/ic_notification" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_toRightOf="@+id/ivAppLogo"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/ivAppLogo"
+            android:text="Title"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="This is message"
-            android:textSize="20sp"
-            android:layout_toRightOf="@id/ivAppLogo"
             android:layout_below="@+id/tvTitle"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_toRightOf="@id/ivAppLogo"
+            android:text="This is message"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
