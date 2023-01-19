@@ -23,12 +23,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val customContentView = RemoteViews("com.example.hilass", R.layout.notification)
             customContentView.setTextViewText(R.id.tvTitle, notification.title)
             customContentView.setTextViewText(R.id.tvMessage, notification.body)
-            customContentView.setImageViewResource(R.id.ivAppLogo, R.drawable.ic_notification)
+            customContentView.setImageViewResource(R.id.ivAppLogo, R.drawable.hilassicon)
 
             val customBigContentView = RemoteViews("com.example.hilass", R.layout.notification)
             customBigContentView.setTextViewText(R.id.tvTitle, notification.title)
             customBigContentView.setTextViewText(R.id.tvMessage, notification.body)
-            customBigContentView.setImageViewResource(R.id.ivAppLogo, R.drawable.ic_notification)
+            customBigContentView.setImageViewResource(R.id.ivAppLogo, R.drawable.hilassicon)
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -44,7 +44,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
             val notificationBuilder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.ic_notification)
+                .setSmallIcon(R.drawable.hilassicon)
                 .setCustomContentView(customContentView)
                 .setCustomBigContentView(customBigContentView)
                 .setVibrate(longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400))
