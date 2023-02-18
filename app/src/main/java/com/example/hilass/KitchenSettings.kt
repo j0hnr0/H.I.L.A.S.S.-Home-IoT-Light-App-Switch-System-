@@ -38,6 +38,8 @@ class KitchenSettings : AppCompatActivity() {
         swAmbientLightingKitchen.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
                 swAmbient = true
+                swAutomaticLightingKitchen.isChecked = false
+                swAutomatic = false
             } else {
                 swAmbient = false
             }
@@ -46,6 +48,8 @@ class KitchenSettings : AppCompatActivity() {
         swAutomaticLightingKitchen.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
                 swAutomatic = true
+                swAmbientLightingKitchen.isChecked = false
+                swAmbient = false
             } else {
                 swAutomatic = false
             }
@@ -156,13 +160,23 @@ class KitchenSettings : AppCompatActivity() {
         btnKitchenSave.isClickable = false
 
         when(swAmbient){
-            true -> userRef.update("ambientLightingKitchen", true)
-            false -> userRef.update("ambientLightingKitchen", false)
+            true -> {
+                userRef.update("ambientLightingKitchen", true)
+                userRef.update("automaticLightingKitchen", false)
+            }
+            false -> {
+                userRef.update("ambientLightingKitchen", false)
+            }
         }
 
         when(swAutomatic){
-            true -> userRef.update("automaticLightingKitchen", true)
-            false -> userRef.update("automaticLightingKitchen", false)
+            true -> {
+                userRef.update("automaticLightingKitchen", true)
+                userRef.update("ambientLightingKitchen", false)
+            }
+            false -> {
+                userRef.update("automaticLightingKitchen", false)
+            }
         }
 
         when(swDayLight){

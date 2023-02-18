@@ -38,6 +38,8 @@ class BedroomSettings : AppCompatActivity() {
         swAmbientLightingBedroom.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
                 swAmbient = true
+                swAutomaticLightingBedroom.isChecked = false
+                swAutomatic = false
             } else {
                 swAmbient = false
             }
@@ -46,6 +48,8 @@ class BedroomSettings : AppCompatActivity() {
         swAutomaticLightingBedroom.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
                 swAutomatic = true
+                swAmbientLightingBedroom.isChecked = false
+                swAmbient = false
             } else {
                 swAutomatic = false
             }
@@ -158,13 +162,23 @@ class BedroomSettings : AppCompatActivity() {
         btnBedroomSave.isClickable = false
 
         when(swAmbient){
-            true -> userRef.update("ambientLightingBedroom", true)
-            false -> userRef.update("ambientLightingBedroom", false)
+            true -> {
+                userRef.update("ambientLightingBedroom", true)
+                userRef.update("automaticLightingBedroom", false)
+            }
+            false -> {
+                userRef.update("ambientLightingBedroom", false)
+            }
         }
 
         when(swAutomatic){
-            true -> userRef.update("automaticLightingBedroom", true)
-            false -> userRef.update("automaticLightingBedroom", false)
+            true -> {
+                userRef.update("automaticLightingBedroom", true)
+                userRef.update("ambientLightingBedroom", false)
+            }
+            false -> {
+                userRef.update("automaticLightingBedroom", false)
+            }
         }
 
         when(swDayLight){

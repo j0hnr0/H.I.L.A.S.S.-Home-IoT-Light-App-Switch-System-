@@ -39,6 +39,8 @@ class LivingRoomSettings : AppCompatActivity() {
         swAmbientLightingLivingRoom.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
                 swAmbient = true
+                swAutomaticLightingLivingRoom.isChecked = false
+                swAutomatic = false
             } else {
                 swAmbient = false
             }
@@ -47,6 +49,8 @@ class LivingRoomSettings : AppCompatActivity() {
         swAutomaticLightingLivingRoom.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
                 swAutomatic = true
+                swAmbientLightingLivingRoom.isChecked = false
+                swAmbient = false
             } else {
                 swAutomatic = false
             }
@@ -158,13 +162,23 @@ class LivingRoomSettings : AppCompatActivity() {
         btnLivingRoomSave.isClickable = false
 
         when(swAmbient){
-            true -> userRef.update("ambientLightingLivingRoom", true)
-            false -> userRef.update("ambientLightingLivingRoom", false)
+            true -> {
+                userRef.update("ambientLightingLivingRoom", true)
+                userRef.update("automaticLightingLivingRoom", false)
+            }
+            false -> {
+                userRef.update("ambientLightingLivingRoom", false)
+            }
         }
 
         when(swAutomatic){
-            true -> userRef.update("automaticLightingLivingRoom", true)
-            false -> userRef.update("automaticLightingLivingRoom", false)
+            true -> {
+                userRef.update("automaticLightingLivingRoom", true)
+                userRef.update("ambientLightingLivingRoom", false)
+            }
+            false -> {
+                userRef.update("automaticLightingLivingRoom", false)
+            }
         }
 
         when(swDayLight){
