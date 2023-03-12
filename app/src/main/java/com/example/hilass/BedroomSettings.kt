@@ -19,10 +19,13 @@ class BedroomSettings : AppCompatActivity() {
 
     private var personCollectionRef = Firebase.firestore.collection("persons")
 
-    private var swAmbient = false
-    private var swAutomatic = false
-    private var swDayLight = false
-    private var swNotification = false
+    private var sw_bedroom_customize = false
+    private var sw_bedroom_movement_only = false
+    private var sw_bedroom_person = false
+    private var sw_bedroom_mode = false
+    private var sw_bedroom_ambient_lighting = false
+    private var sw_bedroom_night_light = false
+    private var sw_bedroom_notification = false
 
     private var listenerRegistration: ListenerRegistration? = null
 
@@ -33,41 +36,113 @@ class BedroomSettings : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         supportActionBar!!.title = "Bedroom"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        swAmbientLightingBedroom.setOnCheckedChangeListener {_, isChecked ->
+        swBedroomMovementOnly.isEnabled = false
+        swBedroomPerson.isEnabled = false
+        swBedroomAmbientLighting.isEnabled = false
+        swBedroomNightLight.isEnabled = false
+        swBedroomNotification.isEnabled = false
+
+        swBedroomCustomize.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked){
-                swAmbient = true
-                swAutomaticLightingBedroom.isChecked = false
-                swAutomatic = false
-            } else {
-                swAmbient = false
+                sw_bedroom_customize = true
+                swBedroomMode.isChecked = false
+                sw_bedroom_mode = false
+                swBedroomAmbientLighting.isEnabled = false
+                swBedroomNightLight.isEnabled = false
+
+                swBedroomAmbientLighting.isChecked = false
+                swBedroomNightLight.isChecked = false
+                sw_bedroom_ambient_lighting = false
+                sw_bedroom_night_light = false
+
+                swBedroomMovementOnly.isEnabled = true
+                swBedroomPerson.isEnabled = true
+
+                swBedroomMovementOnly.isChecked = true
+                sw_bedroom_movement_only = true
+
+                swBedroomNotification.isEnabled = false
+                swBedroomNotification.isChecked = false
+                sw_bedroom_notification = false
+
+            }else {
+                sw_bedroom_customize = false
+                swBedroomMode.isChecked = true
             }
         }
 
-        swAutomaticLightingBedroom.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
-                swAutomatic = true
-                swAmbientLightingBedroom.isChecked = false
-                swAmbient = false
+        swBedroomMovementOnly.setOnCheckedChangeListener {_, isChecked ->
+            if(isChecked) {
+                sw_bedroom_movement_only = true
+                swBedroomPerson.isChecked = false
+                sw_bedroom_person = false
             } else {
-                swAutomatic = false
+
             }
         }
 
-        swDaylightBedroom.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
-                swDayLight = true
+        swBedroomPerson.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked) {
+                sw_bedroom_person = true
+                swBedroomMovementOnly.isChecked = false
+                sw_bedroom_movement_only = false
             } else {
-                swDayLight = false
+
             }
         }
 
-        swNotificationBedroom.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
-                swNotification = true
+        swBedroomMode.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked) {
+                sw_bedroom_mode = true
+                swBedroomCustomize.isChecked = false
+                sw_bedroom_customize = false
+                swBedroomMovementOnly.isEnabled = false
+                swBedroomPerson.isEnabled = false
+
+                swBedroomMovementOnly.isChecked = false
+                swBedroomPerson.isChecked = false
+                sw_bedroom_movement_only = false
+                sw_bedroom_person = false
+
+                swBedroomAmbientLighting.isChecked = true
+                sw_bedroom_ambient_lighting = true
+
+                swBedroomAmbientLighting.isEnabled = true
+                swBedroomNightLight.isEnabled = true
+
+                swBedroomNotification.isEnabled = true
+            }else {
+                sw_bedroom_mode = false
+                swBedroomCustomize.isChecked = true
+            }
+        }
+
+        swBedroomAmbientLighting.setOnCheckedChangeListener {_, isChecked ->
+            if(isChecked) {
+                sw_bedroom_ambient_lighting = true
+                swBedroomNightLight.isChecked = false
+                sw_bedroom_night_light = false
             } else {
-                swNotification = false
+
+            }
+        }
+
+        swBedroomNightLight.setOnCheckedChangeListener {_, isChecked ->
+            if(isChecked) {
+                sw_bedroom_night_light = true
+                swBedroomAmbientLighting.isChecked = false
+                sw_bedroom_ambient_lighting = false
+            } else {
+
+            }
+        }
+
+        swBedroomNotification.setOnCheckedChangeListener {_, isChecked ->
+            if(isChecked) {
+                sw_bedroom_notification = true
+            } else {
+                sw_bedroom_notification = false
             }
         }
 
@@ -92,54 +167,92 @@ class BedroomSettings : AppCompatActivity() {
             }
 
             if(snapshot != null && snapshot.exists()){
-                val ambient = snapshot.get("ambientLightingBedroom").toString().toBoolean()
-                val automatic = snapshot.get("automaticLightingBedroom").toString().toBoolean()
-                val dayLight = snapshot.get("dayLightBedroom").toString().toBoolean()
-                val notification = snapshot.get("notificationBedroom").toString().toBoolean()
+                val bedroomCustomize = snapshot.get("swBedroomCustomize").toString().toBoolean()
+                val bedroomMovementOnly = snapshot.get("swBedroomMovementOnly").toString().toBoolean()
+                val bedroomPerson = snapshot.get("swBedroomPerson").toString().toBoolean()
+                val bedroomMode = snapshot.get("swBedroomMode").toString().toBoolean()
+                val bedroomAmbientLighting = snapshot.get("swBedroomAmbientLighting").toString().toBoolean()
+                val bedroomNightLight = snapshot.get("swBedroomNightLight").toString().toBoolean()
+                val bedroomNotification = snapshot.get("swBedroomNotification").toString().toBoolean()
 
-                when(ambient){
+                when(bedroomCustomize){
                     true ->{
-                        swAmbient = ambient
-                        swAmbientLightingBedroom.isChecked = true
+                        sw_bedroom_customize = bedroomCustomize
+                        swBedroomCustomize.isChecked = true
                     }
                     false ->{
-                        swAmbient = ambient
-                        swAmbientLightingBedroom.isChecked = false
+                        sw_bedroom_customize = bedroomCustomize
+                        swBedroomCustomize.isChecked = false
                     }
                 }
 
-                when(automatic){
+                when(bedroomMovementOnly){
                     true ->{
-                        swAutomatic = automatic
-                        swAutomaticLightingBedroom.isChecked = true
+                        sw_bedroom_movement_only = bedroomMovementOnly
+                        swBedroomMovementOnly.isChecked = true
                     }
                     false ->{
-                        swAutomatic = automatic
-                        swAutomaticLightingBedroom.isChecked = false
+                        sw_bedroom_movement_only = bedroomMovementOnly
+                        swBedroomMovementOnly.isChecked = false
                     }
                 }
 
-                when(dayLight){
+                when(bedroomPerson){
                     true ->{
-                        swDayLight = dayLight
-                        swDaylightBedroom.isChecked = true
+                        sw_bedroom_person = bedroomPerson
+                        swBedroomPerson.isChecked = true
                     }
                     false ->{
-                        swDayLight = dayLight
-                        swDaylightBedroom.isChecked = false
+                        sw_bedroom_person = bedroomPerson
+                        swBedroomPerson.isChecked = false
                     }
                 }
 
-                when(notification){
+                when(bedroomMode){
                     true ->{
-                        swNotification = notification
-                        swNotificationBedroom.isChecked = true
+                        sw_bedroom_mode = bedroomMode
+                        swBedroomMode.isChecked = true
                     }
                     false ->{
-                        swNotification = notification
-                        swNotificationBedroom.isChecked = false
+                        sw_bedroom_mode = bedroomMode
+                        swBedroomMode.isChecked = false
                     }
                 }
+
+                when(bedroomAmbientLighting){
+                    true ->{
+                        sw_bedroom_ambient_lighting = bedroomAmbientLighting
+                        swBedroomAmbientLighting.isChecked = true
+                    }
+                    false ->{
+                        sw_bedroom_ambient_lighting = bedroomAmbientLighting
+                        swBedroomAmbientLighting.isChecked = false
+                    }
+                }
+
+
+                when(bedroomNightLight){
+                    true ->{
+                        sw_bedroom_night_light = bedroomNightLight
+                        swBedroomNightLight.isChecked = true
+                    }
+                    false ->{
+                        sw_bedroom_night_light = bedroomNightLight
+                        swBedroomNightLight.isChecked = false
+                    }
+                }
+
+                when(bedroomNotification){
+                    true ->{
+                        sw_bedroom_notification = bedroomNotification
+                        swBedroomNotification.isChecked = true
+                    }
+                    false ->{
+                        sw_bedroom_notification = bedroomNotification
+                        swBedroomNotification.isChecked = false
+                    }
+                }
+
 
             } else{
                 // Do nothing
@@ -161,35 +274,52 @@ class BedroomSettings : AppCompatActivity() {
         btnBedroomSave.setTextColor(Color.GRAY)
         btnBedroomSave.isClickable = false
 
-        when(swAmbient){
+        when(sw_bedroom_customize){
             true -> {
-                userRef.update("ambientLightingBedroom", true)
-                userRef.update("automaticLightingBedroom", false)
+                userRef.update("swBedroomCustomize", true)
             }
             false -> {
-                userRef.update("ambientLightingBedroom", false)
+                userRef.update("swBedroomCustomize", false)
             }
         }
 
-        when(swAutomatic){
+        when(sw_bedroom_movement_only){
             true -> {
-                userRef.update("automaticLightingBedroom", true)
-                userRef.update("ambientLightingBedroom", false)
+                userRef.update("swBedroomMovementOnly", true)
             }
             false -> {
-                userRef.update("automaticLightingBedroom", false)
+                userRef.update("swBedroomMovementOnly", false)
             }
         }
 
-        when(swDayLight){
-            true -> userRef.update("dayLightBedroom", true)
-            false -> userRef.update("dayLightBedroom", false)
+        when(sw_bedroom_person){
+            true -> userRef.update("swBedroomPerson", true)
+            false -> userRef.update("swBedroomPerson", false)
         }
 
-        when(swNotification){
-            true -> userRef.update("notificationBedroom", true)
-            false -> userRef.update("notificationBedroom", false)
+        when(sw_bedroom_mode){
+            true -> userRef.update("swBedroomMode", true)
+            false -> userRef.update("swBedroomMode", false)
         }
 
+        when(sw_bedroom_ambient_lighting){
+            true -> userRef.update("swBedroomAmbientLighting", true)
+            false -> userRef.update("swBedroomAmbientLighting", false)
+        }
+
+        when(sw_bedroom_night_light){
+            true -> userRef.update("swBedroomNightLight", true)
+            false -> userRef.update("swBedroomNightLight", false)
+        }
+
+        when(sw_bedroom_notification){
+            true -> userRef.update("swBedroomNotification", true)
+            false -> userRef.update("swBedroomNotification", false)
+        }
+
+    }
+
+    override fun onBackPressed() {
+        Toast.makeText(this, "Please Select and Save your preferences", Toast.LENGTH_LONG).show()
     }
 }

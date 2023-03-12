@@ -1,5 +1,6 @@
 package com.example.hilass
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -41,6 +42,18 @@ class LivingRoomFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
+        val addContactDialog = AlertDialog.Builder(requireContext())
+            .setTitle("Automatic Settings Preferences")
+            .setMessage("Please set your Automatic settings preferences")
+            .setIcon(R.drawable.hilassicon)
+            .setPositiveButton("Go to settings") { _, _ ->
+                Intent(requireContext(), LivingRoomSettings::class.java).also {
+                    startActivity(it)
+                }
+            }
+            .setCancelable(false)
+            .create()
+
         btnManualLivingRoom.setOnClickListener {
             btnManualAuto = false
             setManualAutoValue()
@@ -49,17 +62,14 @@ class LivingRoomFragment : Fragment() {
         btnAutomaticLivingRoom.setOnClickListener {
             btnManualAuto = true
             setManualAutoValue()
+
+            addContactDialog.show()
         }
 
         ivLivingRoomBulb.setOnClickListener {
             setBulbValue()
         }
 
-        ivLivingRoomSettings.setOnClickListener {
-            Intent(context, LivingRoomSettings::class.java).also {
-                startActivity(it)
-            }
-        }
         getRealtimeUpdates()
     }
 

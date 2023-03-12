@@ -20,10 +20,13 @@ class LivingRoomSettings : AppCompatActivity() {
 
     private var personCollectionRef = Firebase.firestore.collection("persons")
 
-    private var swAmbient = false
-    private var swAutomatic = false
-    private var swDayLight = false
-    private var swNotification = false
+    private var sw_livingroom_customize = false
+    private var sw_livingroom_movement_only = false
+    private var sw_livingroom_person = false
+    private var sw_livingroom_mode = false
+    private var sw_livingroom_ambient_lighting = false
+    private var sw_livingroom_night_light = false
+    private var sw_livingroom_notification = false
 
     private var listenerRegistration: ListenerRegistration? = null
 
@@ -34,41 +37,113 @@ class LivingRoomSettings : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         supportActionBar!!.title = "Living Room"
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        swAmbientLightingLivingRoom.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
-                swAmbient = true
-                swAutomaticLightingLivingRoom.isChecked = false
-                swAutomatic = false
+        swLivingRoomMovementOnly.isEnabled = false
+        swLivingRoomPerson.isEnabled = false
+        swLivingRoomAmbientLighting.isEnabled = false
+        swLivingRoomNightLight.isEnabled = false
+        swLivingRoomNotification.isEnabled = false
+
+        swLivingRoomCustomize.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sw_livingroom_customize = true
+                swLivingRoomMode.isChecked = false
+                sw_livingroom_mode = false
+                swLivingRoomAmbientLighting.isEnabled = false
+                swLivingRoomNightLight.isEnabled = false
+
+                swLivingRoomAmbientLighting.isChecked = false
+                swLivingRoomNightLight.isChecked = false
+                sw_livingroom_ambient_lighting = false
+                sw_livingroom_night_light = false
+
+                swLivingRoomMovementOnly.isEnabled = true
+                swLivingRoomPerson.isEnabled = true
+
+                swLivingRoomMovementOnly.isChecked = true
+                sw_livingroom_movement_only = true
+
+                swLivingRoomNotification.isEnabled = false
+                swLivingRoomNotification.isChecked = false
+                sw_livingroom_notification = false
+
             } else {
-                swAmbient = false
+                sw_livingroom_customize = false
+                swLivingRoomMode.isChecked = true
             }
         }
 
-        swAutomaticLightingLivingRoom.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
-                swAutomatic = true
-                swAmbientLightingLivingRoom.isChecked = false
-                swAmbient = false
+        swLivingRoomMovementOnly.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sw_livingroom_movement_only = true
+                swLivingRoomPerson.isChecked = false
+                sw_livingroom_person = false
             } else {
-                swAutomatic = false
+
             }
         }
 
-        swDayLightLivingRoom.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
-                swDayLight = true
+        swLivingRoomPerson.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sw_livingroom_person = true
+                swLivingRoomMovementOnly.isChecked = false
+                sw_livingroom_movement_only = false
             } else {
-                swDayLight = false
+
             }
         }
 
-        swNotificationLivingRoom.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
-                swNotification = true
+        swLivingRoomMode.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sw_livingroom_mode = true
+                swLivingRoomCustomize.isChecked = false
+                sw_livingroom_customize = false
+                swLivingRoomMovementOnly.isEnabled = false
+                swLivingRoomPerson.isEnabled = false
+
+                swLivingRoomMovementOnly.isChecked = false
+                swLivingRoomPerson.isChecked = false
+                sw_livingroom_movement_only = false
+                sw_livingroom_person = false
+
+                swLivingRoomAmbientLighting.isChecked = true
+                sw_livingroom_ambient_lighting = true
+
+                swLivingRoomAmbientLighting.isEnabled = true
+                swLivingRoomNightLight.isEnabled = true
+
+                swLivingRoomNotification.isEnabled = true
             } else {
-                swNotification = false
+                sw_livingroom_mode = false
+                swLivingRoomCustomize.isChecked = true
+            }
+        }
+
+        swLivingRoomAmbientLighting.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sw_livingroom_ambient_lighting = true
+                swLivingRoomNightLight.isChecked = false
+                sw_livingroom_night_light = false
+            } else {
+
+            }
+        }
+
+        swLivingRoomNightLight.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sw_livingroom_night_light = true
+                swLivingRoomAmbientLighting.isChecked = false
+                sw_livingroom_ambient_lighting = false
+            } else {
+
+            }
+        }
+
+        swLivingRoomNotification.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sw_livingroom_notification = true
+            } else {
+                sw_livingroom_notification = false
             }
         }
 
@@ -80,71 +155,110 @@ class LivingRoomSettings : AppCompatActivity() {
         getRealtimeUpdates()
     }
 
-    private fun getRealtimeUpdates(){
+    private fun getRealtimeUpdates() {
         val user = auth.currentUser
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
 
-        listenerRegistration = userRef.addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
-            if(e != null){
-                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-                return@EventListener
-            }
-
-            if(snapshot != null && snapshot.exists()){
-                val ambient = snapshot.get("ambientLightingLivingRoom").toString().toBoolean()
-                val automatic = snapshot.get("automaticLightingLivingRoom").toString().toBoolean()
-                val dayLight = snapshot.get("dayLightLivingRoom").toString().toBoolean()
-                val notification = snapshot.get("notificationLivingRoom").toString().toBoolean()
-
-                when(ambient){
-                    true ->{
-                        swAmbient = ambient
-                        swAmbientLightingLivingRoom.isChecked = true
-                    }
-                    false ->{
-                        swAmbient = ambient
-                        swAmbientLightingLivingRoom.isChecked = false
-                    }
+        listenerRegistration =
+            userRef.addSnapshotListener(EventListener<DocumentSnapshot> { snapshot, e ->
+                if (e != null) {
+                    Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+                    return@EventListener
                 }
 
-                when(automatic){
-                    true ->{
-                        swAutomatic = automatic
-                        swAutomaticLightingLivingRoom.isChecked = true
-                    }
-                    false ->{
-                        swAutomatic = automatic
-                        swAutomaticLightingLivingRoom.isChecked = false
-                    }
-                }
+                if (snapshot != null && snapshot.exists()) {
+                    val livingRoomCustomize = snapshot.get("swLivingRoomCustomize").toString().toBoolean()
+                    val livingRoomMovementOnly = snapshot.get("swLivingRoomMovementOnly").toString().toBoolean()
+                    val livingRoomPerson = snapshot.get("swLivingRoomPerson").toString().toBoolean()
+                    val livingRoomMode = snapshot.get("swLivingRoomMode").toString().toBoolean()
+                    val livingRoomAmbientLighting = snapshot.get("swLivingRoomAmbientLighting").toString().toBoolean()
+                    val livingRoomNightLight = snapshot.get("swLivingRoomNightLight").toString().toBoolean()
+                    val livingRoomNotification = snapshot.get("swLivingRoomNotification").toString().toBoolean()
 
-                when(dayLight){
-                    true ->{
-                        swDayLight = dayLight
-                        swDayLightLivingRoom.isChecked = true
+                    when(livingRoomCustomize){
+                        true ->{
+                            sw_livingroom_customize = livingRoomCustomize
+                            swLivingRoomCustomize.isChecked = true
+                        }
+                        false ->{
+                            sw_livingroom_customize = livingRoomCustomize
+                            swLivingRoomCustomize.isChecked = false
+                        }
                     }
-                    false ->{
-                        swDayLight = dayLight
-                        swDayLightLivingRoom.isChecked = false
-                    }
-                }
 
-                when(notification){
-                    true ->{
-                        swNotification = notification
-                        swNotificationLivingRoom.isChecked = true
+                    when(livingRoomMovementOnly){
+                        true ->{
+                            sw_livingroom_movement_only = livingRoomMovementOnly
+                            swLivingRoomMovementOnly.isChecked = true
+                        }
+                        false ->{
+                            sw_livingroom_movement_only = livingRoomMovementOnly
+                            swLivingRoomMovementOnly.isChecked = false
+                        }
                     }
-                    false ->{
-                        swNotification = notification
-                        swNotificationLivingRoom.isChecked = false
-                    }
-                }
 
-            } else{
-                // Do nothing
-            }
-        })
+                    when(livingRoomPerson){
+                        true ->{
+                            sw_livingroom_person = livingRoomPerson
+                            swLivingRoomPerson.isChecked = true
+                        }
+                        false ->{
+                            sw_livingroom_person = livingRoomPerson
+                            swLivingRoomPerson.isChecked = false
+                        }
+                    }
+
+                    when(livingRoomMode){
+                        true ->{
+                            sw_livingroom_mode = livingRoomMode
+                            swLivingRoomMode.isChecked = true
+                        }
+                        false ->{
+                            sw_livingroom_mode = livingRoomMode
+                            swLivingRoomMode.isChecked = false
+                        }
+                    }
+
+                    when(livingRoomAmbientLighting){
+                        true ->{
+                            sw_livingroom_ambient_lighting = livingRoomAmbientLighting
+                            swLivingRoomAmbientLighting.isChecked = true
+                        }
+                        false ->{
+                            sw_livingroom_ambient_lighting = livingRoomAmbientLighting
+                            swLivingRoomAmbientLighting.isChecked = false
+                        }
+                    }
+
+
+                    when(livingRoomNightLight){
+                        true ->{
+                            sw_livingroom_night_light = livingRoomNightLight
+                            swLivingRoomNightLight.isChecked = true
+                        }
+                        false ->{
+                            sw_livingroom_night_light = livingRoomNightLight
+                            swLivingRoomNightLight.isChecked = false
+                        }
+                    }
+
+                    when(livingRoomNotification){
+                        true ->{
+                            sw_livingroom_notification = livingRoomNotification
+                            swLivingRoomNotification.isChecked = true
+                        }
+                        false ->{
+                            sw_livingroom_notification = livingRoomNotification
+                            swLivingRoomNotification.isChecked = false
+                        }
+                    }
+
+
+                } else {
+                    // Do nothing
+                }
+            })
     }
 
     override fun onDestroy() {
@@ -152,7 +266,7 @@ class LivingRoomSettings : AppCompatActivity() {
         listenerRegistration?.remove()
     }
 
-    private fun saveValue(){
+    private fun saveValue() {
         val user = auth.currentUser
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
@@ -161,35 +275,51 @@ class LivingRoomSettings : AppCompatActivity() {
         btnLivingRoomSave.setTextColor(Color.GRAY)
         btnLivingRoomSave.isClickable = false
 
-        when(swAmbient){
+        when(sw_livingroom_customize){
             true -> {
-                userRef.update("ambientLightingLivingRoom", true)
-                userRef.update("automaticLightingLivingRoom", false)
+                userRef.update("swLivingRoomCustomize", true)
             }
             false -> {
-                userRef.update("ambientLightingLivingRoom", false)
+                userRef.update("swLivingRoomCustomize", false)
             }
         }
 
-        when(swAutomatic){
+        when(sw_livingroom_movement_only){
             true -> {
-                userRef.update("automaticLightingLivingRoom", true)
-                userRef.update("ambientLightingLivingRoom", false)
+                userRef.update("swLivingRoomMovementOnly", true)
             }
             false -> {
-                userRef.update("automaticLightingLivingRoom", false)
+                userRef.update("swLivingRoomMovementOnly", false)
             }
         }
 
-        when(swDayLight){
-            true -> userRef.update("dayLightLivingRoom", true)
-            false -> userRef.update("dayLightLivingRoom", false)
+        when(sw_livingroom_person){
+            true -> userRef.update("swLivingRoomPerson", true)
+            false -> userRef.update("swLivingRoomPerson", false)
         }
 
-        when(swNotification){
-            true -> userRef.update("notificationLivingRoom", true)
-            false -> userRef.update("notificationLivingRoom", false)
+        when(sw_livingroom_mode){
+            true -> userRef.update("swLivingRoomMode", true)
+            false -> userRef.update("swLivingRoomMode", false)
         }
 
+        when(sw_livingroom_ambient_lighting){
+            true -> userRef.update("swLivingRoomAmbientLighting", true)
+            false -> userRef.update("swLivingRoomAmbientLighting", false)
+        }
+
+        when(sw_livingroom_night_light){
+            true -> userRef.update("swLivingRoomNightLight", true)
+            false -> userRef.update("swLivingRoomNightLight", false)
+        }
+
+        when(sw_livingroom_notification){
+            true -> userRef.update("swLivingRoomNotification", true)
+            false -> userRef.update("swLivingRoomNotification", false)
+        }
+    }
+
+    override fun onBackPressed() {
+        Toast.makeText(this, "Please Select and Save your preferences", Toast.LENGTH_LONG).show()
     }
 }

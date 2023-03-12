@@ -1,5 +1,6 @@
 package com.example.hilass
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -40,6 +41,18 @@ class KitchenFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
+        val addContactDialog = AlertDialog.Builder(requireContext())
+            .setTitle("Automatic Settings Preferences")
+            .setMessage("Please set your Automatic settings preferences")
+            .setIcon(R.drawable.hilassicon)
+            .setPositiveButton("Go to settings") { _, _ ->
+                Intent(requireContext(), KitchenSettings::class.java).also {
+                    startActivity(it)
+                }
+            }
+            .setCancelable(false)
+            .create()
+
         btnManualKitchen.setOnClickListener {
             btnManualAuto = false
             setManualAutoValue()
@@ -48,17 +61,14 @@ class KitchenFragment : Fragment() {
         btnAutomaticKitchen.setOnClickListener {
             btnManualAuto = true
             setManualAutoValue()
+
+            addContactDialog.show()
         }
 
         ivKitchenBulb.setOnClickListener {
             setBulbValue()
         }
 
-        ivKitchenSettings.setOnClickListener {
-            Intent(context, KitchenSettings::class.java).also {
-                startActivity(it)
-            }
-        }
         getRealtimeUpdates()
     }
 
