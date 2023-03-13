@@ -170,7 +170,17 @@ class BedroomFragment : Fragment() {
         val userRef = personCollectionRef.document(uid)
 
         when(btnManualAuto){
-            false ->  userRef.update("manualAutoBedroom", false)
+            false -> {
+                userRef.update("manualAutoBedroom", false)
+
+                userRef.update("swBedroomCustomize", false)
+                userRef.update("swBedroomMovementOnly", false)
+                userRef.update("swBedroomPerson", false)
+                userRef.update("swBedroomMode", false)
+                userRef.update("swBedroomAmbientLighting", false)
+                userRef.update("swBedroomNightLight", false)
+                userRef.update("swBedroomNotification", false)
+            }
             true -> userRef.update("manualAutoBedroom", true)
 
         }

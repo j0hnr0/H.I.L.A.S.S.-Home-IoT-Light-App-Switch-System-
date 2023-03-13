@@ -153,7 +153,17 @@ class KitchenFragment : Fragment() {
         val userRef = personCollectionRef.document(uid)
 
         when(btnManualAuto){
-            false ->  userRef.update("manualAutoKitchen", false)
+            false -> {
+                userRef.update("manualAutoKitchen", false)
+
+                userRef.update("swKitchenCustomize", false)
+                userRef.update("swKitchenMovementOnly", false)
+                userRef.update("swKitchenPerson", false)
+                userRef.update("swKitchenMode", false)
+                userRef.update("swKitchenAmbientLighting", false)
+                userRef.update("swKitchenNightLight", false)
+                userRef.update("swKitchenNotification", false)
+            }
             true -> userRef.update("manualAutoKitchen", true)
 
         }

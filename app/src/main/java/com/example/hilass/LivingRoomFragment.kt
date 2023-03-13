@@ -158,7 +158,17 @@ class LivingRoomFragment : Fragment() {
         val userRef = personCollectionRef.document(uid)
 
         when(btnManualAuto){
-            false ->  userRef.update("manualAutoLivingRoom", false)
+            false -> {
+                userRef.update("manualAutoLivingRoom", false)
+
+                userRef.update("swLivingRoomCustomize", false)
+                userRef.update("swLivingRoomMovementOnly", false)
+                userRef.update("swLivingRoomPerson", false)
+                userRef.update("swLivingRoomMode", false)
+                userRef.update("swLivingRoomAmbientLighting", false)
+                userRef.update("swLivingRoomNightLight", false)
+                userRef.update("swLivingRoomNotification", false)
+            }
             true -> userRef.update("manualAutoLivingRoom", true)
         }
 
