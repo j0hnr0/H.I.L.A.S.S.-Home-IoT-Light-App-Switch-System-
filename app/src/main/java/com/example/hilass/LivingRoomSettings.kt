@@ -13,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_bedroom_settings.*
 import kotlinx.android.synthetic.main.activity_kitchen_settings.*
 import kotlinx.android.synthetic.main.activity_living_room_settings.*
+import java.util.*
 
 class LivingRoomSettings : AppCompatActivity() {
 
@@ -37,6 +38,8 @@ class LivingRoomSettings : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         supportActionBar!!.title = "Living Room"
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
 
         swLivingRoomMovementOnly.isEnabled = false
         swLivingRoomPerson.isEnabled = false
@@ -95,6 +98,9 @@ class LivingRoomSettings : AppCompatActivity() {
 
         swLivingRoomMode.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+
+                val timeNow = getCurrentHour()
+
                 sw_livingroom_mode = true
                 swLivingRoomCustomize.isChecked = false
                 sw_livingroom_customize = false
@@ -109,8 +115,22 @@ class LivingRoomSettings : AppCompatActivity() {
                 swLivingRoomAmbientLighting.isChecked = true
                 sw_livingroom_ambient_lighting = true
 
-                swLivingRoomAmbientLighting.isEnabled = true
-                swLivingRoomNightLight.isEnabled = true
+                swLivingRoomAmbientLighting.isEnabled = false
+                swLivingRoomNightLight.isEnabled = false
+
+                if (timeNow >= 6 && timeNow <= 17) {
+                    swLivingRoomAmbientLighting.isChecked = true
+                    sw_livingroom_ambient_lighting = true
+
+                    swLivingRoomNightLight.isChecked = false
+                    sw_livingroom_night_light = false
+                } else {
+                    swLivingRoomNightLight.isChecked = true
+                    sw_livingroom_night_light = true
+
+                    swLivingRoomAmbientLighting.isChecked = false
+                    sw_livingroom_ambient_lighting = false
+                }
 
                 swLivingRoomNotification.isEnabled = true
             } else {
@@ -119,25 +139,7 @@ class LivingRoomSettings : AppCompatActivity() {
             }
         }
 
-        swLivingRoomAmbientLighting.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                sw_livingroom_ambient_lighting = true
-                swLivingRoomNightLight.isChecked = false
-                sw_livingroom_night_light = false
-            } else {
 
-            }
-        }
-
-        swLivingRoomNightLight.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                sw_livingroom_night_light = true
-                swLivingRoomAmbientLighting.isChecked = false
-                sw_livingroom_ambient_lighting = false
-            } else {
-
-            }
-        }
 
         swLivingRoomNotification.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -154,6 +156,12 @@ class LivingRoomSettings : AppCompatActivity() {
 
         getRealtimeUpdates()
     }
+
+    private fun getCurrentHour(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.HOUR_OF_DAY)
+    }
+
 
     private fun getRealtimeUpdates() {
         val user = auth.currentUser

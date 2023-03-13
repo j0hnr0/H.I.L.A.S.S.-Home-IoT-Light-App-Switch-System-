@@ -12,6 +12,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_bedroom_settings.*
 import kotlinx.android.synthetic.main.fragment_bedroom.*
+import java.util.*
 
 class BedroomSettings : AppCompatActivity() {
 
@@ -36,6 +37,8 @@ class BedroomSettings : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         supportActionBar!!.title = "Bedroom"
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
 
         swBedroomMovementOnly.isEnabled = false
         swBedroomPerson.isEnabled = false
@@ -94,6 +97,9 @@ class BedroomSettings : AppCompatActivity() {
 
         swBedroomMode.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked) {
+
+                val timeNow = getCurrentHour()
+
                 sw_bedroom_mode = true
                 swBedroomCustomize.isChecked = false
                 sw_bedroom_customize = false
@@ -105,36 +111,27 @@ class BedroomSettings : AppCompatActivity() {
                 sw_bedroom_movement_only = false
                 sw_bedroom_person = false
 
-                swBedroomAmbientLighting.isChecked = true
-                sw_bedroom_ambient_lighting = true
+                swBedroomAmbientLighting.isEnabled = false
+                swBedroomNightLight.isEnabled = false
 
-                swBedroomAmbientLighting.isEnabled = true
-                swBedroomNightLight.isEnabled = true
+                if (timeNow >= 6 && timeNow <= 17) {
+                    swBedroomAmbientLighting.isChecked = true
+                    sw_bedroom_ambient_lighting = true
+
+                    swBedroomNightLight.isChecked = false
+                    sw_bedroom_night_light = false
+                } else {
+                    swBedroomNightLight.isChecked = true
+                    sw_bedroom_night_light = true
+
+                    swBedroomAmbientLighting.isChecked = false
+                    sw_bedroom_ambient_lighting = false
+                }
 
                 swBedroomNotification.isEnabled = true
             }else {
                 sw_bedroom_mode = false
                 swBedroomCustomize.isChecked = true
-            }
-        }
-
-        swBedroomAmbientLighting.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked) {
-                sw_bedroom_ambient_lighting = true
-                swBedroomNightLight.isChecked = false
-                sw_bedroom_night_light = false
-            } else {
-
-            }
-        }
-
-        swBedroomNightLight.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked) {
-                sw_bedroom_night_light = true
-                swBedroomAmbientLighting.isChecked = false
-                sw_bedroom_ambient_lighting = false
-            } else {
-
             }
         }
 
@@ -152,8 +149,13 @@ class BedroomSettings : AppCompatActivity() {
         }
 
         getRealtimeUpdates()
-
     }
+
+    private fun getCurrentHour(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.HOUR_OF_DAY)
+    }
+
 
     private fun getRealtimeUpdates(){
         val user = auth.currentUser

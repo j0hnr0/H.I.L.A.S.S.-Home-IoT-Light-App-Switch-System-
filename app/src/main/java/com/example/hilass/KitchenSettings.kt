@@ -12,6 +12,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_bedroom_settings.*
 import kotlinx.android.synthetic.main.activity_kitchen_settings.*
+import java.util.*
 
 class KitchenSettings : AppCompatActivity() {
 
@@ -36,6 +37,8 @@ class KitchenSettings : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         supportActionBar!!.title = "Kitchen"
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
 
         swKitchenMovementOnly.isEnabled = false
         swKitchenPerson.isEnabled = false
@@ -93,6 +96,9 @@ class KitchenSettings : AppCompatActivity() {
 
         swKitchenMode.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked) {
+
+                val timeNow = getCurrentHour()
+
                 sw_kitchen_mode = true
                 swKitchenCustomize.isChecked = false
                 sw_kitchen_customize = false
@@ -107,8 +113,22 @@ class KitchenSettings : AppCompatActivity() {
                 swKitchenAmbientLighting.isChecked = true
                 sw_kitchen_ambient_lighting = true
 
-                swKitchenAmbientLighting.isEnabled = true
-                swKitchenNightLight.isEnabled = true
+                swKitchenAmbientLighting.isEnabled = false
+                swKitchenNightLight.isEnabled = false
+
+                if (timeNow >= 6 && timeNow <= 17) {
+                    swKitchenAmbientLighting.isChecked = true
+                    sw_kitchen_ambient_lighting = true
+
+                    swKitchenNightLight.isChecked = false
+                    sw_kitchen_night_light = false
+                } else {
+                    swKitchenNightLight.isChecked = true
+                    sw_kitchen_night_light = true
+
+                    swKitchenAmbientLighting.isChecked = false
+                    sw_kitchen_ambient_lighting = false
+                }
 
                 swKitchenNotification.isEnabled = true
             } else {
@@ -117,25 +137,6 @@ class KitchenSettings : AppCompatActivity() {
             }
         }
 
-        swKitchenAmbientLighting.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked) {
-                sw_kitchen_ambient_lighting = true
-                swKitchenNightLight.isChecked = false
-                sw_kitchen_night_light = false
-            } else {
-
-            }
-        }
-
-        swKitchenNightLight.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked) {
-                sw_kitchen_night_light = true
-                swKitchenAmbientLighting.isChecked = false
-                sw_kitchen_ambient_lighting = false
-            } else {
-
-            }
-        }
 
         swKitchenNotification.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked) {
@@ -149,6 +150,11 @@ class KitchenSettings : AppCompatActivity() {
             finish()
         }
         getRealtimeUpdates()
+    }
+
+    private fun getCurrentHour(): Int {
+        val calendar = Calendar.getInstance()
+        return calendar.get(Calendar.HOUR_OF_DAY)
     }
 
     private fun getRealtimeUpdates(){
