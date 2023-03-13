@@ -125,6 +125,7 @@ class LivingRoomSettings : AppCompatActivity() {
                     swLivingRoomNightLight.isChecked = false
                     sw_livingroom_night_light = false
                 } else {
+
                     swLivingRoomNightLight.isChecked = true
                     sw_livingroom_night_light = true
 
