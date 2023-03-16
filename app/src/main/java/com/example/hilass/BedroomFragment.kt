@@ -62,6 +62,20 @@ class BedroomFragment : Fragment() {
             setManualAutoValue()
         }
 
+        if(btnManualAuto) {
+            ivBedroomSettings.visibility = View.VISIBLE
+        }else {
+            ivBedroomSettings.visibility = View.INVISIBLE
+        }
+
+        ivBedroomSettings.setOnClickListener {
+            setBedroomSettings()
+            Intent(requireContext(), BedroomSettings::class.java).also {
+                startActivity(it)
+            }
+        }
+
+
         btnAutomaticBedroom.setOnClickListener {
             btnManualAuto = true
             setManualAutoValue()
@@ -185,6 +199,22 @@ class BedroomFragment : Fragment() {
 
         }
     }
+
+    private fun setBedroomSettings(){
+        val user = auth.currentUser
+        val uid = user!!.uid
+        val userRef = personCollectionRef.document(uid)
+
+                userRef.update("swBedroomCustomize", false)
+                userRef.update("swBedroomMovementOnly", false)
+                userRef.update("swBedroomPerson", false)
+                userRef.update("swBedroomMode", false)
+                userRef.update("swBedroomAmbientLighting", false)
+                userRef.update("swBedroomNightLight", false)
+                userRef.update("swBedroomNotification", false)
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         listenerRegistration?.remove()

@@ -15,6 +15,8 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.fragment_bedroom.*
+import kotlinx.android.synthetic.main.fragment_kitchen.*
 import kotlinx.android.synthetic.main.fragment_living_room.*
 
 class LivingRoomFragment : Fragment() {
@@ -64,6 +66,19 @@ class LivingRoomFragment : Fragment() {
             setManualAutoValue()
 
             addContactDialog.show()
+        }
+
+        if(btnManualAuto) {
+            ivLivingRoomSettings.visibility = View.VISIBLE
+        }else {
+            ivLivingRoomSettings.visibility = View.INVISIBLE
+        }
+
+        ivLivingRoomSettings.setOnClickListener {
+            setLivingRoomSettings()
+            Intent(requireContext(), LivingRoomSettings::class.java).also {
+                startActivity(it)
+            }
         }
 
         ivLivingRoomBulb.setOnClickListener {
@@ -171,6 +186,23 @@ class LivingRoomFragment : Fragment() {
             }
             true -> userRef.update("manualAutoLivingRoom", true)
         }
+
+    }
+
+    private fun setLivingRoomSettings(){
+
+        val user = auth.currentUser
+        val uid = user!!.uid
+        val userRef = personCollectionRef.document(uid)
+
+                userRef.update("swLivingRoomCustomize", false)
+                userRef.update("swLivingRoomMovementOnly", false)
+                userRef.update("swLivingRoomPerson", false)
+                userRef.update("swLivingRoomMode", false)
+                userRef.update("swLivingRoomAmbientLighting", false)
+                userRef.update("swLivingRoomNightLight", false)
+                userRef.update("swLivingRoomNotification", false)
+
 
     }
 

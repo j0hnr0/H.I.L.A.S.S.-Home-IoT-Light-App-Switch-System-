@@ -65,6 +65,19 @@ class KitchenFragment : Fragment() {
             addContactDialog.show()
         }
 
+        if(btnManualAuto) {
+            ivKitchenSettings.visibility = View.VISIBLE
+        }else {
+            ivKitchenSettings.visibility = View.INVISIBLE
+        }
+
+        ivKitchenSettings.setOnClickListener {
+            setKitchenSettings()
+            Intent(requireContext(), KitchenSettings::class.java).also {
+                startActivity(it)
+            }
+        }
+
         ivKitchenBulb.setOnClickListener {
             setBulbValue()
         }
@@ -168,6 +181,22 @@ class KitchenFragment : Fragment() {
 
         }
     }
+
+    private fun setKitchenSettings() {
+        val user = auth.currentUser
+        val uid = user!!.uid
+        val userRef = personCollectionRef.document(uid)
+
+                userRef.update("swKitchenCustomize", false)
+                userRef.update("swKitchenMovementOnly", false)
+                userRef.update("swKitchenPerson", false)
+                userRef.update("swKitchenMode", false)
+                userRef.update("swKitchenAmbientLighting", false)
+                userRef.update("swKitchenNightLight", false)
+                userRef.update("swKitchenNotification", false)
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         listenerRegistration?.remove()
