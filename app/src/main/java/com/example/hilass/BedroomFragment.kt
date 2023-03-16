@@ -59,14 +59,10 @@ class BedroomFragment : Fragment() {
 
         btnManualBedroom.setOnClickListener {
             btnManualAuto = false
+            ivBedroomSettings.visibility = View.INVISIBLE
             setManualAutoValue()
         }
 
-        if(btnManualAuto) {
-            ivBedroomSettings.visibility = View.VISIBLE
-        }else {
-            ivBedroomSettings.visibility = View.INVISIBLE
-        }
 
         ivBedroomSettings.setOnClickListener {
             setBedroomSettings()
@@ -78,6 +74,7 @@ class BedroomFragment : Fragment() {
 
         btnAutomaticBedroom.setOnClickListener {
             btnManualAuto = true
+            ivBedroomSettings.visibility = View.VISIBLE
             setManualAutoValue()
 
             addContactDialog.show()
@@ -141,6 +138,8 @@ class BedroomFragment : Fragment() {
 
                             ivBedroomBulb.isClickable = false
                             tvInstructionBedroom.text = ""
+
+                            ivBedroomSettings.visibility = View.VISIBLE
                         }
                         false -> {
                             btnManualAuto = manualAuto
@@ -205,13 +204,13 @@ class BedroomFragment : Fragment() {
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
 
-                userRef.update("swBedroomCustomize", false)
-                userRef.update("swBedroomMovementOnly", false)
-                userRef.update("swBedroomPerson", false)
-                userRef.update("swBedroomMode", false)
-                userRef.update("swBedroomAmbientLighting", false)
-                userRef.update("swBedroomNightLight", false)
-                userRef.update("swBedroomNotification", false)
+        userRef.update("swBedroomCustomize", false)
+        userRef.update("swBedroomMovementOnly", false)
+        userRef.update("swBedroomPerson", false)
+        userRef.update("swBedroomMode", false)
+        userRef.update("swBedroomAmbientLighting", false)
+        userRef.update("swBedroomNightLight", false)
+        userRef.update("swBedroomNotification", false)
 
     }
 

@@ -58,20 +58,16 @@ class LivingRoomFragment : Fragment() {
 
         btnManualLivingRoom.setOnClickListener {
             btnManualAuto = false
+            ivLivingRoomSettings.visibility = View.INVISIBLE
             setManualAutoValue()
         }
 
         btnAutomaticLivingRoom.setOnClickListener {
             btnManualAuto = true
+            ivLivingRoomSettings.visibility = View.VISIBLE
             setManualAutoValue()
 
             addContactDialog.show()
-        }
-
-        if(btnManualAuto) {
-            ivLivingRoomSettings.visibility = View.VISIBLE
-        }else {
-            ivLivingRoomSettings.visibility = View.INVISIBLE
         }
 
         ivLivingRoomSettings.setOnClickListener {
@@ -128,6 +124,7 @@ class LivingRoomFragment : Fragment() {
 
                         ivLivingRoomBulb.isClickable = false
                         tvInstructionLivingRoom.text = ""
+                        ivLivingRoomSettings.visibility = View.VISIBLE
                     }
                     false -> {
                         btnManualAuto = manualAuto
@@ -195,13 +192,13 @@ class LivingRoomFragment : Fragment() {
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
 
-                userRef.update("swLivingRoomCustomize", false)
-                userRef.update("swLivingRoomMovementOnly", false)
-                userRef.update("swLivingRoomPerson", false)
-                userRef.update("swLivingRoomMode", false)
-                userRef.update("swLivingRoomAmbientLighting", false)
-                userRef.update("swLivingRoomNightLight", false)
-                userRef.update("swLivingRoomNotification", false)
+        userRef.update("swLivingRoomCustomize", false)
+        userRef.update("swLivingRoomMovementOnly", false)
+        userRef.update("swLivingRoomPerson", false)
+        userRef.update("swLivingRoomMode", false)
+        userRef.update("swLivingRoomAmbientLighting", false)
+        userRef.update("swLivingRoomNightLight", false)
+        userRef.update("swLivingRoomNotification", false)
 
 
     }

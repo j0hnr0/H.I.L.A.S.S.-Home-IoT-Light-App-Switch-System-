@@ -55,21 +55,18 @@ class KitchenFragment : Fragment() {
 
         btnManualKitchen.setOnClickListener {
             btnManualAuto = false
+            ivKitchenSettings.visibility = View.INVISIBLE
             setManualAutoValue()
         }
 
         btnAutomaticKitchen.setOnClickListener {
             btnManualAuto = true
+            ivKitchenSettings.visibility = View.VISIBLE
             setManualAutoValue()
 
             addContactDialog.show()
         }
 
-        if(btnManualAuto) {
-            ivKitchenSettings.visibility = View.VISIBLE
-        }else {
-            ivKitchenSettings.visibility = View.INVISIBLE
-        }
 
         ivKitchenSettings.setOnClickListener {
             setKitchenSettings()
@@ -124,6 +121,7 @@ class KitchenFragment : Fragment() {
 
                         ivKitchenBulb.isClickable = false
                         tvInstructionKitchen.text = ""
+                        ivKitchenSettings.visibility = View.VISIBLE
                     }
                     false -> {
                         btnManualAuto = manualAuto
@@ -187,13 +185,13 @@ class KitchenFragment : Fragment() {
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
 
-                userRef.update("swKitchenCustomize", false)
-                userRef.update("swKitchenMovementOnly", false)
-                userRef.update("swKitchenPerson", false)
-                userRef.update("swKitchenMode", false)
-                userRef.update("swKitchenAmbientLighting", false)
-                userRef.update("swKitchenNightLight", false)
-                userRef.update("swKitchenNotification", false)
+        userRef.update("swKitchenCustomize", false)
+        userRef.update("swKitchenMovementOnly", false)
+        userRef.update("swKitchenPerson", false)
+        userRef.update("swKitchenMode", false)
+        userRef.update("swKitchenAmbientLighting", false)
+        userRef.update("swKitchenNightLight", false)
+        userRef.update("swKitchenNotification", false)
 
     }
 
