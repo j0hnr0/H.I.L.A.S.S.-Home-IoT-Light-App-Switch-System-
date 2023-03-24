@@ -42,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
+  /*  override fun onStart() {
         super.onStart()
         checkLoggedInState()
     }
@@ -58,13 +58,13 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-    }
+    }*/
 
-    private fun registerUser(){
+    private fun registerUser() {
         val email = etRegisterEmailAddress.text.toString()
         val password = etRegisterPassword.text.toString()
 
-        if(email.isNotEmpty() && password.isNotEmpty()){
+        if (email.isNotEmpty() && password.isNotEmpty()) {
             btnRegisterRegisterPage.setBackgroundResource(R.drawable.btn_shape_round_disable)
             btnRegisterRegisterPage.setTextColor(Color.GRAY)
             btnRegisterRegisterPage.isClickable = false
@@ -72,49 +72,55 @@ class RegisterActivity : AppCompatActivity() {
                 try {
                     auth.createUserWithEmailAndPassword(email, password).await()
                     val user = auth.currentUser
-                    if(user!=null){
-                        val uid = user.uid
-                        val userRef = personCollectionRef.document(uid)
-                        val data = UserData(
-                            bulbOnOffBedroom = false,
-                            manualAutoBedroom = false,
-                            swBedroomCustomize = false,
-                            swBedroomMovementOnly = false,
-                            swBedroomPerson = false,
-                            swBedroomMode = false,
-                            swBedroomAmbientLighting = false,
-                            swBedroomNightLight = false,
-                            swBedroomNotification = false,
-                            bulbOnOffLivingRoom = false,
-                            manualAutoLivingRoom = false,
-                            swLivingRoomCustomize = false,
-                            swLivingRoomMovementOnly = false,
-                            swLivingRoomPerson = false,
-                            swLivingRoomMode = false,
-                            swLivingRoomAmbientLighting = false,
-                            swLivingRoomNightLight = false,
-                            swLivingRoomNotification = false,
-                            bulbOnOffKitchen = false,
-                            manualAutoKitchen = false,
-                            swKitchenCustomize = false,
-                            swKitchenMovementOnly = false,
-                            swKitchenPerson = false,
-                            swKitchenMode = false,
-                            swKitchenAmbientLighting = false,
-                            swKitchenNightLight = false,
-                            swKitchenNotification = false,
-                            sendNotificationBedroom = false,
-                            sendNotificationLivingRoom = false,
-                            sendNotificationKitchen = false,
-                            fcmToken = ""
-                        )
-                        userRef.set(data).await()
+                    user?.sendEmailVerification()?.await() // send email verification
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "Registration successful. Verification email sent to $email",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
-                    withContext(Dispatchers.Main){
-                        checkLoggedInState()
+                    val uid = user?.uid
+                    val userRef = personCollectionRef.document(uid!!)
+                    val data = UserData(
+                        bulbOnOffBedroom = false,
+                        manualAutoBedroom = false,
+                        swBedroomCustomize = false,
+                        swBedroomMovementOnly = false,
+                        swBedroomPerson = false,
+                        swBedroomMode = false,
+                        swBedroomAmbientLighting = false,
+                        swBedroomNightLight = false,
+                        swBedroomNotification = false,
+                        bulbOnOffLivingRoom = false,
+                        manualAutoLivingRoom = false,
+                        swLivingRoomCustomize = false,
+                        swLivingRoomMovementOnly = false,
+                        swLivingRoomPerson = false,
+                        swLivingRoomMode = false,
+                        swLivingRoomAmbientLighting = false,
+                        swLivingRoomNightLight = false,
+                        swLivingRoomNotification = false,
+                        bulbOnOffKitchen = false,
+                        manualAutoKitchen = false,
+                        swKitchenCustomize = false,
+                        swKitchenMovementOnly = false,
+                        swKitchenPerson = false,
+                        swKitchenMode = false,
+                        swKitchenAmbientLighting = false,
+                        swKitchenNightLight = false,
+                        swKitchenNotification = false,
+                        sendNotificationBedroom = false,
+                        sendNotificationLivingRoom = false,
+                        sendNotificationKitchen = false,
+                        fcmToken = ""
+                    )
+                    userRef.set(data).await()
+                    withContext(Dispatchers.Main) {
+                        // Do nothing
                     }
-                } catch(e: Exception){
-                    withContext(Dispatchers.Main){
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
                         Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_LONG).show()
                         btnRegisterRegisterPage.setBackgroundResource(R.drawable.btn_shape_round)
                         btnRegisterRegisterPage.setTextColor(Color.WHITE)
@@ -122,10 +128,11 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             }
-        }else{
+        } else {
             Toast.makeText(this, "Please enter your email address and password", Toast.LENGTH_LONG).show()
         }
     }
+
 
 
 }

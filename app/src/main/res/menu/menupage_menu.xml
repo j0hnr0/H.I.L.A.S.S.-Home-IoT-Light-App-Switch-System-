@@ -2,9 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <item
+        android:id="@+id/menuPageChangeEmail"
+        android:title="Change Email"/>
+
     <item
         android:id="@+id/menuPageLogout"
-        android:title="Logout"
-        app:showAsAction="always"/>
+        android:title="Logout"/>
 
 </menu>

@@ -59,10 +59,19 @@
                 android:background="@drawable/custom_edittext"
                 android:drawablePadding="10dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:ems="20"/>
+
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password?"
+                android:textSize="16sp"
+                android:layout_marginBottom="15dp"
+                android:textStyle="bold"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnLoginLoginPage"
