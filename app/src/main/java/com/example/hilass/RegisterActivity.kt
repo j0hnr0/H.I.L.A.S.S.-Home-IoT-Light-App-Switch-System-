@@ -113,6 +113,9 @@ class RegisterActivity : AppCompatActivity() {
                         sendNotificationBedroom = false,
                         sendNotificationLivingRoom = false,
                         sendNotificationKitchen = false,
+                        bulbLifeSpanBedroom = 0,
+                        bulbLifeSpanKitchen = 0,
+                        bulbLifeSpanLivingRoom = 0,
                         fcmToken = ""
                     )
                     userRef.set(data).await()

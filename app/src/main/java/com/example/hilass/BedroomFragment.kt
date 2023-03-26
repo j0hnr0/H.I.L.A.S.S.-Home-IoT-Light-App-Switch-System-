@@ -3,10 +3,12 @@ package com.example.hilass
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -20,6 +22,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Duration
+import java.time.Instant
 
 class BedroomFragment : Fragment() {
 
@@ -29,6 +33,7 @@ class BedroomFragment : Fragment() {
 
     private var bulbValue = false
     private var btnManualAuto = false
+    private var bulbOnTimestamp: Instant? = null
 
     private var listenerRegistration: ListenerRegistration? = null
 
@@ -40,6 +45,7 @@ class BedroomFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_bedroom, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -90,6 +96,7 @@ class BedroomFragment : Fragment() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getRealtimeUpdates(){
 
         if (btnAutomaticBedroom == null) {
@@ -114,15 +121,28 @@ class BedroomFragment : Fragment() {
 
                     val bulb = snapshot.get("bulbOnOffBedroom").toString().toBoolean()
                     val manualAuto = snapshot.get("manualAutoBedroom").toString().toBoolean()
+                    var bulbLifeSpan = snapshot.get("bulbLifeSpanBedroom").toString().toInt()
+
 
                     when(bulb){
                         true -> {
                             bulbValue = bulb
                             ivBedroomBulb.setImageResource(R.drawable.bulb_on)
+
+                            bulbOnTimestamp = Instant.now()
+                            tvBedroomBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
                         }
                         false -> {
                             bulbValue = bulb
                             ivBedroomBulb.setImageResource(R.drawable.bulb_off)
+
+                            val trueDuration = getTrueDuration(true, bulbOnTimestamp)
+                            bulbLifeSpan -= trueDuration.toInt()
+                            bulbOnTimestamp = null
+
+                            userRef.update("bulbLifeSpanBedroom", bulbLifeSpan)
+
+                            tvBedroomBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
                         }
                     }
                     when(manualAuto){
@@ -162,9 +182,24 @@ class BedroomFragment : Fragment() {
                     // Do nothing
                 }
             })
-
-
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getTrueDuration(booleanVariable: Boolean, trueTimestamp: Instant?): Long {
+        var durationMinutes = 0L
+
+        if (booleanVariable) {
+            trueTimestamp?.let { timestamp ->
+                val nowInstant = Instant.now()
+                val duration = Duration.between(timestamp, nowInstant)
+                durationMinutes = duration.toHours()
+            }
+        }
+
+        return durationMinutes
+    }
+
+
     private fun setBulbValue(){
         val user = auth.currentUser
         val uid = user!!.uid

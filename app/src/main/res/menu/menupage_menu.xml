@@ -4,6 +4,10 @@
 
 
     <item
+        android:id="@+id/menuPageSetBulBLifeSpan"
+        android:title="Set Bulb Life Span"/>
+
+    <item
         android:id="@+id/menuPageChangeEmail"
         android:title="Change Email"/>
 

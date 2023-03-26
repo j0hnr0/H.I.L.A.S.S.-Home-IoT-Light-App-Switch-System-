@@ -37,5 +37,9 @@ data class UserData(
     val sendNotificationLivingRoom: Boolean = false,
     val sendNotificationKitchen: Boolean = false,
 
+    val bulbLifeSpanBedroom: Int = 0,
+    val bulbLifeSpanKitchen: Int = 0,
+    val bulbLifeSpanLivingRoom: Int = 0,
+
     val fcmToken: String = ""
 )
