@@ -1,5 +1,8 @@
 package com.example.hilass
 
+import com.google.firebase.Timestamp
+import java.time.Instant
+
 data class UserData(
     val bulbOnOffBedroom: Boolean = false,
     val manualAutoBedroom: Boolean = false,
@@ -37,9 +40,13 @@ data class UserData(
     val sendNotificationLivingRoom: Boolean = false,
     val sendNotificationKitchen: Boolean = false,
 
-    val bulbLifeSpanBedroom: Int = 0,
-    val bulbLifeSpanKitchen: Int = 0,
-    val bulbLifeSpanLivingRoom: Int = 0,
+    val bulbLifeSpanBedroom: Long? = null,
+    val bulbLifeSpanKitchen: Long? = null,
+    val bulbLifeSpanLivingRoom: Long? = null,
+
+    val timestampBedroom: Long? = null,
+    val timestampKitchen: Long? = null,
+    val timestampLivingRoom: Long? = null,
 
     val fcmToken: String = ""
 )

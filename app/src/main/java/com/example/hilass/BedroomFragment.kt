@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -22,6 +23,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Math.abs
+import java.sql.Timestamp
 import java.time.Duration
 import java.time.Instant
 
@@ -33,7 +36,7 @@ class BedroomFragment : Fragment() {
 
     private var bulbValue = false
     private var btnManualAuto = false
-    private var bulbOnTimestamp: Instant? = null
+    private var count = 1
 
     private var listenerRegistration: ListenerRegistration? = null
 
@@ -91,6 +94,7 @@ class BedroomFragment : Fragment() {
             setBulbValue()
         }
 
+//        getBulbLifeSpan()
         getRealtimeUpdates()
     }
 
@@ -121,7 +125,8 @@ class BedroomFragment : Fragment() {
 
                     val bulb = snapshot.get("bulbOnOffBedroom").toString().toBoolean()
                     val manualAuto = snapshot.get("manualAutoBedroom").toString().toBoolean()
-                    var bulbLifeSpan = snapshot.get("bulbLifeSpanBedroom").toString().toInt()
+                    var timestamp: Long? = snapshot.get("timestampBedroom") as Long?
+                    var bulbLifeSpan: Long = snapshot.get("bulbLifeSpanBedroom").toString().toLong()
 
 
                     when(bulb){
@@ -129,20 +134,45 @@ class BedroomFragment : Fragment() {
                             bulbValue = bulb
                             ivBedroomBulb.setImageResource(R.drawable.bulb_on)
 
-                            bulbOnTimestamp = Instant.now()
+
+
+                            if(count > 1) {
+                                val bulbOnTimestamp: Long = Instant.now().toEpochMilli()
+
+                                userRef.update("timestampBedroom", bulbOnTimestamp)
+
+
+                            }
+                            count = 1
+
+
                             tvBedroomBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
+
                         }
                         false -> {
                             bulbValue = bulb
                             ivBedroomBulb.setImageResource(R.drawable.bulb_off)
 
-                            val trueDuration = getTrueDuration(true, bulbOnTimestamp)
-                            bulbLifeSpan -= trueDuration.toInt()
-                            bulbOnTimestamp = null
+                            if(bulbLifeSpan > 0 && timestamp != null && count <= 1){
 
-                            userRef.update("bulbLifeSpanBedroom", bulbLifeSpan)
+                                val durationMillis: Long =  Instant.now().toEpochMilli() - timestamp
+                                val durationHours: Long = durationMillis / 3600000L
+                                bulbLifeSpan -= durationHours
 
+                                Log.d("BedroomFragment", "Timestamp: $timestamp")
+                                Log.d("BedroomFragment", "Duration: $durationHours")
+                                Log.d("BedroomFragment", "DurationMillis: $durationMillis")
+                                Log.d("BedroomFragment", "LifeSpan: $bulbLifeSpan")
+
+                                userRef.update("bulbLifeSpanBedroom", bulbLifeSpan)
+                                userRef.update("timestampBedroom", null)
+
+
+
+                            }
+                            count = 2
                             tvBedroomBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
+
                         }
                     }
                     when(manualAuto){
@@ -184,20 +214,48 @@ class BedroomFragment : Fragment() {
             })
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getTrueDuration(booleanVariable: Boolean, trueTimestamp: Instant?): Long {
-        var durationMinutes = 0L
-
-        if (booleanVariable) {
-            trueTimestamp?.let { timestamp ->
-                val nowInstant = Instant.now()
-                val duration = Duration.between(timestamp, nowInstant)
-                durationMinutes = duration.toHours()
-            }
-        }
-
-        return durationMinutes
-    }
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    private fun getBulbLifeSpan() {
+//
+//        val user = auth.currentUser
+//        val uid = user!!.uid
+//        val userRef = personCollectionRef.document(uid)
+//
+//        userRef.get()
+//            .addOnSuccessListener { document ->
+//                if (document != null) {
+//                    val bulb = document.get("bulbOnOffBedroom").toString().toBoolean()
+//                    var timestamp = document.get("timestampBedroom").toString().toIntOrNull()
+//                    var bulbLifeSpan = document.get("bulbLifeSpanBedroom").toString().toInt()
+//
+//                    if(bulb == true) {
+//                        bulbOnTimestamp = Instant.now().toEpochMilli().toInt()
+//
+//                        userRef.update("timestampBedroom", bulbOnTimestamp)
+//                    } else {
+//                        if(bulbLifeSpan > 0){
+//
+//                            if (timestamp != null) {
+//                                getTimeStamp = Instant.ofEpochMilli(timestamp.toLong())
+//                                val duration = Duration.between(getTimeStamp, Instant.now())
+//                                val durationMillis = duration.toMillis()
+//                                val durationHours = (durationMillis / (1000 * 60 * 60)).toInt() // Convert milliseconds to hours using integer division
+//                                bulbLifeSpan -= durationHours
+//                            }
+//
+//                            userRef.update("bulbLifeSpanBedroom", bulbLifeSpan)
+//                            userRef.update("timestampBedroom", null)
+//                        }
+//
+//                    }
+//
+//
+//                } else {
+//
+//                }
+//            }
+//
+//    }
 
 
     private fun setBulbValue(){

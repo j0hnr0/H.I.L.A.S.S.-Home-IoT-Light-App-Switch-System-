@@ -3,9 +3,12 @@ package com.example.hilass
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -16,6 +19,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_bedroom.*
 import kotlinx.android.synthetic.main.fragment_kitchen.*
 import kotlinx.android.synthetic.main.fragment_living_room.*
+import java.time.Duration
+import java.time.Instant
 
 class KitchenFragment : Fragment() {
 
@@ -25,6 +30,7 @@ class KitchenFragment : Fragment() {
 
     private var bulbValue = false
     private var btnManualAuto = false
+    private var count = 1
 
     private var listenerRegistration: ListenerRegistration? = null
 
@@ -36,6 +42,7 @@ class KitchenFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_kitchen, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -82,6 +89,7 @@ class KitchenFragment : Fragment() {
         getRealtimeUpdates()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getRealtimeUpdates(){
         val user = auth.currentUser
         val uid = user!!.uid
@@ -97,15 +105,50 @@ class KitchenFragment : Fragment() {
 
                 val bulb = snapshot.get("bulbOnOffKitchen").toString().toBoolean()
                 val manualAuto = snapshot.get("manualAutoKitchen").toString().toBoolean()
+                var timestamp: Long? = snapshot.get("timestampKitchen") as Long?
+                var bulbLifeSpan: Long = snapshot.get("bulbLifeSpanKitchen").toString().toLong()
 
                 when(bulb){
                     true -> {
                         bulbValue = bulb
                         ivKitchenBulb.setImageResource(R.drawable.bulb_on)
+
+
+                        if(count > 1) {
+                            val bulbOnTimestamp: Long = Instant.now().toEpochMilli()
+
+                            userRef.update("timestampKitchen", bulbOnTimestamp)
+
+
+                        }
+                        count = 1
+
+
+                        tvBedroomBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
                     }
                     false -> {
                         bulbValue = bulb
                         ivKitchenBulb.setImageResource(R.drawable.bulb_off)
+
+                        if(bulbLifeSpan > 0 && timestamp != null && count <= 1){
+
+                            val durationMillis: Long =  Instant.now().toEpochMilli() - timestamp
+                            val durationHours: Long = durationMillis / 3600000L
+                            bulbLifeSpan -= durationHours
+
+                            Log.d("KitchenFragment", "Timestamp: $timestamp")
+                            Log.d("KitchenFragment", "Duration: $durationHours")
+                            Log.d("KitchenFragment", "DurationMillis: $durationMillis")
+                            Log.d("KitchenFragment", "LifeSpan: $bulbLifeSpan")
+
+                            userRef.update("bulbLifeSpanKitchen", bulbLifeSpan)
+                            userRef.update("timestampKitchen", null)
+
+
+
+                        }
+                        count = 2
+                        tvBedroomBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
                     }
                 }
                 when(manualAuto){
@@ -144,6 +187,21 @@ class KitchenFragment : Fragment() {
                 // Do nothing
             }
         })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getTrueDuration(booleanVariable: Boolean, trueTimestamp: Instant?): Long {
+        var durationMinutes = 0L
+
+        if (booleanVariable) {
+            trueTimestamp?.let { timestamp ->
+                val nowInstant = Instant.now()
+                val duration = Duration.between(timestamp, nowInstant)
+                durationMinutes = duration.toHours()
+            }
+        }
+
+        return durationMinutes
     }
 
     private fun setBulbValue(){

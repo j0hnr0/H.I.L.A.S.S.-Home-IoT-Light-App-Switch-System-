@@ -116,6 +116,9 @@ class RegisterActivity : AppCompatActivity() {
                         bulbLifeSpanBedroom = 0,
                         bulbLifeSpanKitchen = 0,
                         bulbLifeSpanLivingRoom = 0,
+                        timestampBedroom = 0,
+                        timestampKitchen = 0,
+                        timestampLivingRoom = 0,
                         fcmToken = ""
                     )
                     userRef.set(data).await()

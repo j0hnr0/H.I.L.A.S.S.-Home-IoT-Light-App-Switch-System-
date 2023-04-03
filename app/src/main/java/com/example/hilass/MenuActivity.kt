@@ -175,9 +175,9 @@ class MenuActivity : AppCompatActivity() {
 
         // Set up the buttons
         builder.setPositiveButton("OK") { dialog, which ->
-            val bedroomBulbLifeSpan = input1.text.toString().toIntOrNull()
-            val kitchenBulbLifeSpan = input2.text.toString().toIntOrNull()
-            val livingRoomBulbLifeSpan = input3.text.toString().toIntOrNull()
+            val bedroomBulbLifeSpan = input1.text.toString().toLongOrNull()
+            val kitchenBulbLifeSpan = input2.text.toString().toLongOrNull()
+            val livingRoomBulbLifeSpan = input3.text.toString().toLongOrNull()
 
             if(bedroomBulbLifeSpan != null) {
                 setBedroomBulbLifeSpan(bedroomBulbLifeSpan)
@@ -203,7 +203,7 @@ class MenuActivity : AppCompatActivity() {
 
     }
 
-    private fun setBedroomBulbLifeSpan(bedroomBulbLifeSpan: Int){
+    private fun setBedroomBulbLifeSpan(bedroomBulbLifeSpan: Long){
         val user = auth.currentUser
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
@@ -212,7 +212,7 @@ class MenuActivity : AppCompatActivity() {
 
     }
 
-    private fun setKitchenBulbLifeSpan(kitchenBulbLifeSpan: Int){
+    private fun setKitchenBulbLifeSpan(kitchenBulbLifeSpan: Long){
         val user = auth.currentUser
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
@@ -221,7 +221,7 @@ class MenuActivity : AppCompatActivity() {
 
     }
 
-    private fun setLivingRoomBulbLifeSpan(livingRoomBulbLifeSpan: Int){
+    private fun setLivingRoomBulbLifeSpan(livingRoomBulbLifeSpan: Long){
         val user = auth.currentUser
         val uid = user!!.uid
         val userRef = personCollectionRef.document(uid)
