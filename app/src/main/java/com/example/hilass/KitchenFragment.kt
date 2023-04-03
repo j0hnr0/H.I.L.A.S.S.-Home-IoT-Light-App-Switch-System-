@@ -124,7 +124,7 @@ class KitchenFragment : Fragment() {
                         count = 1
 
 
-                        tvBedroomBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
+                        tvKitchenBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
                     }
                     false -> {
                         bulbValue = bulb
@@ -148,7 +148,7 @@ class KitchenFragment : Fragment() {
 
                         }
                         count = 2
-                        tvBedroomBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
+                        tvKitchenBulbLifeSpan.text = "Life Span: $bulbLifeSpan hours"
                     }
                 }
                 when(manualAuto){
