@@ -41,7 +41,6 @@ class BedroomSettings : AppCompatActivity() {
 
 
         swBedroomMovementOnly.isEnabled = false
-        swBedroomPerson.isEnabled = false
         swBedroomAmbientLighting.isEnabled = false
         swBedroomNightLight.isEnabled = false
         swBedroomNotification.isEnabled = false
@@ -60,7 +59,6 @@ class BedroomSettings : AppCompatActivity() {
                 sw_bedroom_night_light = false
 
                 swBedroomMovementOnly.isEnabled = true
-                swBedroomPerson.isEnabled = true
 
                 swBedroomMovementOnly.isChecked = true
                 sw_bedroom_movement_only = true
@@ -78,22 +76,12 @@ class BedroomSettings : AppCompatActivity() {
         swBedroomMovementOnly.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked) {
                 sw_bedroom_movement_only = true
-                swBedroomPerson.isChecked = false
                 sw_bedroom_person = false
             } else {
 
             }
         }
 
-        swBedroomPerson.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked) {
-                sw_bedroom_person = true
-                swBedroomMovementOnly.isChecked = false
-                sw_bedroom_movement_only = false
-            } else {
-
-            }
-        }
 
         swBedroomMode.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked) {
@@ -104,10 +92,8 @@ class BedroomSettings : AppCompatActivity() {
                 swBedroomCustomize.isChecked = false
                 sw_bedroom_customize = false
                 swBedroomMovementOnly.isEnabled = false
-                swBedroomPerson.isEnabled = false
 
                 swBedroomMovementOnly.isChecked = false
-                swBedroomPerson.isChecked = false
                 sw_bedroom_movement_only = false
                 sw_bedroom_person = false
 
@@ -202,11 +188,9 @@ class BedroomSettings : AppCompatActivity() {
                 when(bedroomPerson){
                     true ->{
                         sw_bedroom_person = bedroomPerson
-                        swBedroomPerson.isChecked = true
                     }
                     false ->{
                         sw_bedroom_person = bedroomPerson
-                        swBedroomPerson.isChecked = false
                     }
                 }
 

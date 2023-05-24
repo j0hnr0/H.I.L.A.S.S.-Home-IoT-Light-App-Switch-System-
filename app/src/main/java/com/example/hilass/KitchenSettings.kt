@@ -41,7 +41,6 @@ class KitchenSettings : AppCompatActivity() {
 
 
         swKitchenMovementOnly.isEnabled = false
-        swKitchenPerson.isEnabled = false
         swKitchenAmbientLighting.isEnabled = false
         swKitchenNightLight.isEnabled = false
         swKitchenNotification.isEnabled = false
@@ -63,7 +62,6 @@ class KitchenSettings : AppCompatActivity() {
                 sw_kitchen_movement_only = true
 
                 swKitchenMovementOnly.isEnabled = true
-                swKitchenPerson.isEnabled = true
 
                 swKitchenNotification.isEnabled = false
                 swKitchenNotification.isChecked = false
@@ -77,18 +75,7 @@ class KitchenSettings : AppCompatActivity() {
         swKitchenMovementOnly.setOnCheckedChangeListener {_, isChecked ->
             if(isChecked) {
                 sw_kitchen_movement_only = true
-                swKitchenPerson.isChecked = false
                 sw_kitchen_person = false
-            } else {
-
-            }
-        }
-
-        swKitchenPerson.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked) {
-                sw_kitchen_person = true
-                swKitchenMovementOnly.isChecked = false
-                sw_kitchen_movement_only = false
             } else {
 
             }
@@ -103,10 +90,8 @@ class KitchenSettings : AppCompatActivity() {
                 swKitchenCustomize.isChecked = false
                 sw_kitchen_customize = false
                 swKitchenMovementOnly.isEnabled = false
-                swKitchenPerson.isEnabled = false
 
                 swKitchenMovementOnly.isChecked = false
-                swKitchenPerson.isChecked = false
                 sw_kitchen_movement_only = false
                 sw_kitchen_person = false
 
@@ -202,11 +187,9 @@ class KitchenSettings : AppCompatActivity() {
                 when(kitchenPerson){
                     true ->{
                         sw_kitchen_person = kitchenPerson
-                        swKitchenPerson.isChecked = true
                     }
                     false ->{
                         sw_kitchen_person = kitchenPerson
-                        swKitchenPerson.isChecked = false
                     }
                 }
 

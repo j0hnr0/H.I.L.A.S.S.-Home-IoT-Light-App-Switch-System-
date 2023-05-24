@@ -42,7 +42,6 @@ class LivingRoomSettings : AppCompatActivity() {
 
 
         swLivingRoomMovementOnly.isEnabled = false
-        swLivingRoomPerson.isEnabled = false
         swLivingRoomAmbientLighting.isEnabled = false
         swLivingRoomNightLight.isEnabled = false
         swLivingRoomNotification.isEnabled = false
@@ -61,7 +60,6 @@ class LivingRoomSettings : AppCompatActivity() {
                 sw_livingroom_night_light = false
 
                 swLivingRoomMovementOnly.isEnabled = true
-                swLivingRoomPerson.isEnabled = true
 
                 swLivingRoomMovementOnly.isChecked = true
                 sw_livingroom_movement_only = true
@@ -79,18 +77,7 @@ class LivingRoomSettings : AppCompatActivity() {
         swLivingRoomMovementOnly.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 sw_livingroom_movement_only = true
-                swLivingRoomPerson.isChecked = false
                 sw_livingroom_person = false
-            } else {
-
-            }
-        }
-
-        swLivingRoomPerson.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                sw_livingroom_person = true
-                swLivingRoomMovementOnly.isChecked = false
-                sw_livingroom_movement_only = false
             } else {
 
             }
@@ -105,10 +92,8 @@ class LivingRoomSettings : AppCompatActivity() {
                 swLivingRoomCustomize.isChecked = false
                 sw_livingroom_customize = false
                 swLivingRoomMovementOnly.isEnabled = false
-                swLivingRoomPerson.isEnabled = false
 
                 swLivingRoomMovementOnly.isChecked = false
-                swLivingRoomPerson.isChecked = false
                 sw_livingroom_movement_only = false
                 sw_livingroom_person = false
 
@@ -210,11 +195,9 @@ class LivingRoomSettings : AppCompatActivity() {
                     when(livingRoomPerson){
                         true ->{
                             sw_livingroom_person = livingRoomPerson
-                            swLivingRoomPerson.isChecked = true
                         }
                         false ->{
                             sw_livingroom_person = livingRoomPerson
-                            swLivingRoomPerson.isChecked = false
                         }
                     }
 

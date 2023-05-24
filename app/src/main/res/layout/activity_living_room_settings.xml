@@ -79,41 +79,8 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="20dp"
                     android:textSize="12sp"
-                    android:text="Lights will automatically turn on if movement is detected"/>
-
-                <LinearLayout
-                    android:paddingTop="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Person"
-                        android:layout_weight="1"
-                        android:paddingStart="20dp"
-                        android:textSize="18sp"/>
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/swLivingRoomPerson"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:paddingEnd="10dp"
-                        android:layout_height="wrap_content"
-                        android:thumb="@drawable/thumb"
-                        app:track="@drawable/track"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
-                    android:textSize="12sp"
                     android:paddingBottom="10dp"
-                    android:text="Lights will automatically turn on if person is detected"/>
-
+                    android:text="Lights will automatically turn on if movement is detected"/>
 
 
             </LinearLayout>
